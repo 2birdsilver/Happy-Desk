@@ -43,9 +43,8 @@ public class Article {
         this.date = date;
     }
 
-    public void update(String writer, String recipient, String content, Date date) {
+    public void update(String writer, String content, Date date) {
         this.writer = writer;
-        this.recipient = recipient;
         this.content = content;
         this.date = date;
     }
