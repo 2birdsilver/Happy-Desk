@@ -36,12 +36,17 @@ public class Article {
     @Column(name = "date", nullable = false)
     private Date date;
 
+    // 비밀번호
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Builder
-    public Article(String writer, String recipient, String content, Date date) {
+    public Article(String writer, String recipient, String content, Date date, String password) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
         this.date = date;
+        this.password = password;
     }
 
     public void update(String writer, String content, Date date) {
