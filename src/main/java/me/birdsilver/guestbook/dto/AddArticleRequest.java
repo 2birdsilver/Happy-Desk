@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.birdsilver.guestbook.domain.Article;
-import me.shinsunyoung.springbootdeveloper.domain.Article;
 
 import java.sql.Date;
 
