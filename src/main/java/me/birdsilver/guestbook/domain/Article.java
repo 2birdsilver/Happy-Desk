@@ -11,7 +11,7 @@ import java.sql.Date;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Article {
 
     // id
