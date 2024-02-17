@@ -1,9 +1,8 @@
-package me.birdsilver.guestbook.service;
+package me.birdsilver.guestbook.domain.interns.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.Member;
-import me.birdsilver.guestbook.repository.MemberRepository;
+import me.birdsilver.guestbook.domain.interns.entity.Member;
+import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

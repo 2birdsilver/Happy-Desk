@@ -1,10 +1,9 @@
-package me.birdsilver.guestbook.dto;
+package me.birdsilver.guestbook.domain.memo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.birdsilver.guestbook.domain.Article;
-import me.shinsunyoung.springbootdeveloper.domain.Article;
+import me.birdsilver.guestbook.domain.memo.entity.Article;
 
 import java.sql.Date;
 

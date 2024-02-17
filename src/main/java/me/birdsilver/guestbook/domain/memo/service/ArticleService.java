@@ -1,11 +1,11 @@
-package me.birdsilver.guestbook.service;
+package me.birdsilver.guestbook.domain.memo.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.Article;
-import me.birdsilver.guestbook.dto.AddArticleRequest;
-import me.birdsilver.guestbook.dto.UpdateArticleRequest;
-import me.birdsilver.guestbook.repository.ArticleRepository;
+import me.birdsilver.guestbook.domain.memo.entity.Article;
+import me.birdsilver.guestbook.domain.memo.dto.AddArticleRequest;
+import me.birdsilver.guestbook.domain.memo.dto.UpdateArticleRequest;
+import me.birdsilver.guestbook.domain.memo.dao.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

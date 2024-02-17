@@ -1,4 +1,4 @@
-package me.birdsilver.guestbook.dto;
+package me.birdsilver.guestbook.domain.memo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
