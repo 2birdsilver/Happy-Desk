@@ -1,10 +1,10 @@
 package me.birdsilver.guestbook.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.Article;
-import me.birdsilver.guestbook.domain.Member;
-import me.birdsilver.guestbook.service.ArticleService;
-import me.birdsilver.guestbook.service.MemberService;
+import me.birdsilver.guestbook.domain.interns.entity.Member;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
+import me.birdsilver.guestbook.domain.memo.entity.Article;
+import me.birdsilver.guestbook.domain.memo.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
