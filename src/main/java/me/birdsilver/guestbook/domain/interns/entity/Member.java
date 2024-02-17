@@ -2,12 +2,14 @@ package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     // 멤버 id
@@ -23,4 +25,6 @@ public class Member {
     // 소개글
     @Column(name = "Introduction", nullable = false)
     private String Introduction;
+
+
 }

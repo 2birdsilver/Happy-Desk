@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.birdsilver.guestbook.domain.memo.entity.Article;
-
 import java.sql.Date;
 
 @NoArgsConstructor
