@@ -1,7 +1,6 @@
 package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Intern {
 
     // 멤버 id
     @Id

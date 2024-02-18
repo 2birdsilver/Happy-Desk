@@ -1,18 +1,16 @@
 package me.birdsilver.guestbook.domain.memo.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.Console;
 import java.sql.Date;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Article {
+public class Memo {
 
     // id
     @Id
@@ -41,7 +39,7 @@ public class Article {
     private String password;
 
     @Builder
-    public Article(String writer, String recipient, String content, Date date, String password) {
+    public Memo(String writer, String recipient, String content, Date date, String password) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;

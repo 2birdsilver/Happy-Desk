@@ -1,8 +1,8 @@
 package me.birdsilver.guestbook.domain.interns.service;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.interns.entity.Member;
-import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.dao.InternRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +11,15 @@ import java.util.List;
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final InternRepository memberRepository;
 
     // 모든 멤버 조회
-    public List<Member> findAll() {
+    public List<Intern> findAll() {
         return memberRepository.findAll();
     }
 
     // id로 멤버 조회
-    public Member findById(long id) {
+    public Intern findById(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }

@@ -2,10 +2,10 @@ package me.birdsilver.guestbook.domain.memo.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.memo.entity.Article;
+import me.birdsilver.guestbook.domain.memo.entity.Memo;
 import me.birdsilver.guestbook.domain.memo.dto.AddArticleRequest;
 import me.birdsilver.guestbook.domain.memo.dto.UpdateArticleRequest;
-import me.birdsilver.guestbook.domain.memo.dao.ArticleRepository;
+import me.birdsilver.guestbook.domain.memo.dao.MemoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +14,17 @@ import java.util.List;
 @Service
 public class ArticleService {
 
-    private final ArticleRepository articleRepository;
+    private final MemoRepository articleRepository;
 
-    public Article save(AddArticleRequest request) {
+    public Memo save(AddArticleRequest request) {
         return articleRepository.save(request.toEntity());
     }
 
-    public List<Article> findAll() {
+    public List<Memo> findAll() {
         return articleRepository.findAll();
     }
 
-    public Article findById(long id) {
+    public Memo findById(long id) {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
@@ -34,8 +34,8 @@ public class ArticleService {
     }
 
     @Transactional
-    public Article update(long id, UpdateArticleRequest request) {
-        Article article = articleRepository.findById(id)
+    public Memo update(long id, UpdateArticleRequest request) {
+        Memo article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
         article.update(request.getWriter(), request.getContent(), request.getDate());
