@@ -40,6 +40,9 @@ public class MainController {
     public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if (id == null) {
             model.addAttribute("article", new Memo());
+
+            Intern intern = memberService.findById(id);
+            model.addAttribute("intern", intern);
         } else {
             Memo article = articleService.findById(id);
             model.addAttribute("article", article);
