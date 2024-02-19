@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import me.birdsilver.guestbook.domain.memo.entity.Memo;
-import me.birdsilver.guestbook.domain.memo.service.ArticleService;
+import me.birdsilver.guestbook.domain.memo.service.MemoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class MainController {
     private final MemberService memberService;
-    private final ArticleService articleService;
+    private final MemoService memoService;
 
     @GetMapping("/")
     public String getAllMembers(Model model) {
@@ -38,13 +38,13 @@ public class MainController {
 
     @GetMapping("/new-memo")
     public String newMemo(@RequestParam(required = false) Long id,
-                             @RequestParam(required = false) Long internId, Model model) {
+                          @RequestParam(required = false) Long internId, Model model) {
         // 메모id가 없는 경우
         if (id == null) {
             model.addAttribute("memo", new Memo());
         // 메모id가 있는 경우
         } else {
-            Memo memo = articleService.findById(id);
+            Memo memo = memoService.findById(id);
             model.addAttribute("memo", memo);
         }
         Intern intern = memberService.findById(internId);
