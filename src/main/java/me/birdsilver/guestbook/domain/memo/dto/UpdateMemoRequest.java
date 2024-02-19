@@ -9,7 +9,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UpdateArticleRequest {
+public class UpdateMemoRequest {
     private String writer;
     private String content;
     private Date date;

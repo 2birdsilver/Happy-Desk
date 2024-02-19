@@ -9,11 +9,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class AddArticleRequest {
+public class AddMemoRequest {
     private String writer;
     private String recipient;
     private String content;
     private Date date;
+    private String password;
 
     public Memo toEntity() {
         return Memo.builder()
@@ -21,6 +22,7 @@ public class AddArticleRequest {
                 .recipient(recipient)
                 .content(content)
                 .date(date)
+                .password(password)
                 .build();
     }
 }
