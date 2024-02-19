@@ -1,10 +1,9 @@
-package me.birdsilver.guestbook.dto;
+package me.birdsilver.guestbook.domain.memo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.birdsilver.guestbook.domain.Article;
-
+import me.birdsilver.guestbook.domain.memo.entity.Memo;
 import java.sql.Date;
 
 @NoArgsConstructor
@@ -16,8 +15,8 @@ public class AddArticleRequest {
     private String content;
     private Date date;
 
-    public Article toEntity() {
-        return Article.builder()
+    public Memo toEntity() {
+        return Memo.builder()
                 .writer(writer)
                 .recipient(recipient)
                 .content(content)
