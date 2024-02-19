@@ -15,7 +15,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-src/resources/application.yaml
+src/main/resources/application.yml
 
 ### Eclipse ###
 .apt_generated
