@@ -15,17 +15,17 @@
     <div class="row">
       <div class="col-lg-8">
         <article>
-          <input type="hidden" id="article-id" th:value="${member.id}">
+
           <header class="mb-4">
-            <h1 class="fw-bolder mb-1" th:text="${member.name}"></h1>
+            <h1 class="fw-bolder mb-1" th:text="${intern.name}"></h1>
 <!--            <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>-->
           </header>
           <section class="mb-5">
-            <p class="fs-5 mb-4" th:text="${member.introduction}"></p>
+            <p class="fs-5 mb-4" th:text="${intern.introduction}"></p>
           </section>
 
           <button type="button" id="create-btn"
-                  th:onclick="|location.href='@{/new-article}'|"
+                  th:onclick="|location.href='@{/new-memo?internId={internId}(internId=${intern.id})}'|"
                   class="btn btn-secondary btn-sm mb-3">글 등록</button>
 
 <!--          <button type="button" id="modify-btn"-->
@@ -37,6 +37,4 @@
       </div>
     </div>
   </div>
-
-  <script src="/js/article.js"></script>
 </body>

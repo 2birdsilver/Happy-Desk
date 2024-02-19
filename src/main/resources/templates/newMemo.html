@@ -16,25 +16,25 @@
   <div class="row">
     <div class="col-lg-8">
       <article>
-        <input type="hidden" id="article-id" th:value="${article.id}">
+        <input type="hidden" id="memo-id" th:value="${memo.id}">
 
         <header class="mb-4">
-          <div type="text" class="form-control" placeholder="받는사람" id="recipient" th:value="${intern.id}">
+          <div type="text" class="form-control" placeholder="받는사람" id="recipient" th:text="'TO: ' + ${intern.name}">
             To
           </div>
-
-          <input type="text" class="form-control" placeholder="닉네임" id="writer" th:value="${article.writer}">
-          <input type="text" class="form-control" placeholder="비밀번호" id="password" th:value="${article.password}">
         </header>
+
         <section class="mb-5">
-          <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${article.content}"></textarea>
+          <input type="text" class="form-control" placeholder="닉네임" id="writer" th:value="${memo.writer}">
+          <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${memo.content}"></textarea>
+          <input type="text" class="form-control" placeholder="비밀번호" id="password" th:value="${memo.password}">
         </section>
-        <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
-        <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
+        <button th:if="${memo.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
+        <button th:if="${memo.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
       </article>
     </div>
   </div>
 </div>
 
-<script src="/js/article.js"></script>
+<!--<script src="/js/article.js"></script>-->
 </body>

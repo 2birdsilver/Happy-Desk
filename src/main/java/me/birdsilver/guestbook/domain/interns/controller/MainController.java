@@ -29,25 +29,26 @@ public class MainController {
     }
     @GetMapping("/members/{id}")
     public String getMember(@PathVariable long id, Model model) {
-        Intern member = memberService.findById(id);
+        Intern intern = memberService.findById(id);
 
-        model.addAttribute("member", member);
+        model.addAttribute("intern", intern);
 
         return "intern";
     }
 
-    @GetMapping("/new-article")
-    public String newArticle(@RequestParam(required = false) Long id, Model model) {
+    @GetMapping("/new-memo")
+    public String newMemo(@RequestParam(required = false) Long id,
+                             @RequestParam(required = false) Long internId, Model model) {
+        // 메모id가 없는 경우
         if (id == null) {
-            model.addAttribute("article", new Memo());
-
-            Intern intern = memberService.findById(id);
-            model.addAttribute("intern", intern);
+            model.addAttribute("memo", new Memo());
+        // 메모id가 있는 경우
         } else {
-            Memo article = articleService.findById(id);
-            model.addAttribute("article", article);
+            Memo memo = articleService.findById(id);
+            model.addAttribute("memo", memo);
         }
-
+        Intern intern = memberService.findById(internId);
+        model.addAttribute("intern", intern);
         return "newMemo";
     }
 

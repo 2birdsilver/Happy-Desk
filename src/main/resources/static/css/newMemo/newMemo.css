@@ -13,3 +13,14 @@
     align-items: center;
     justify-content: center;
 }
+
+#recipient {
+    margin-bottom: 20px;
+    background: black;
+    color: white;
+    font-weight: 700;
+}
+
+section > * {
+margin-bottom: 5px;
+}
