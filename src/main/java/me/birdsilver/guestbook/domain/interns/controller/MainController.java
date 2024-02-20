@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import me.birdsilver.guestbook.domain.memo.entity.Memo;
-import me.birdsilver.guestbook.domain.memo.service.ArticleService;
+import me.birdsilver.guestbook.domain.memo.service.MemoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class MainController {
     private final MemberService memberService;
-    private final ArticleService articleService;
+    private final MemoService memoService;
 
     @GetMapping("/")
     public String getAllMembers(Model model) {
@@ -40,8 +40,11 @@ public class MainController {
     public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if (id == null) {
             model.addAttribute("article", new Memo());
+
+            Intern intern = memberService.findById(id);
+            model.addAttribute("intern", intern);
         } else {
-            Memo article = articleService.findById(id);
+            Memo article = memoService.findById(id);
             model.addAttribute("article", article);
         }
 

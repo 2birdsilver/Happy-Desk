@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -32,7 +33,7 @@ public class Memo {
 
     // 작성일
     @Column(name = "date", nullable = false)
-    private Date date;
+    private LocalDate date;
 
     // 비밀번호
     @Column(name = "password", nullable = false)
@@ -43,13 +44,13 @@ public class Memo {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
-        this.date = date;
+        this.date = LocalDate.now();
         this.password = password;
     }
 
     public void update(String writer, String content, Date date) {
         this.writer = writer;
         this.content = content;
-        this.date = date;
+        //수정일 추가?
     }
 }
