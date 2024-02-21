@@ -31,11 +31,23 @@ public class MemoController {
         return memoService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Memo> getMemoById(@PathVariable long id) {
-        Memo memo = memoService.findById(id);
-        return ResponseEntity.ok(memo);
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Memo> getMemoById(@PathVariable long id) {
+//        Memo memo = memoService.findById(id);
+//        return ResponseEntity.ok(memo);
+//    }
+
+    @GetMapping("/{recipient}")
+    public ResponseEntity<List<Memo>> getMemosByRecipient(@PathVariable Long recipient) {
+        List<Memo> memos = memoService.findByRecipient(recipient);
+        if (memos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(memos);
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMemo(@PathVariable long id) {

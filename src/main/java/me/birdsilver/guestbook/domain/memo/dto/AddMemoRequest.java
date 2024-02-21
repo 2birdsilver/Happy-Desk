@@ -11,7 +11,7 @@ import java.sql.Date;
 @Getter
 public class AddMemoRequest {
     private String writer;
-    private String recipient;
+    private Long recipient;
     private String content;
     private Date date;
     private String password;

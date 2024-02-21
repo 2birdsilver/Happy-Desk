@@ -14,28 +14,32 @@ import java.util.List;
 @Service
 public class MemoService {
 
-    private final MemoRepository MemoRepository;
+    private final MemoRepository memoRepository;
 
     public Memo save(AddMemoRequest request) {
-        return MemoRepository.save(request.toEntity());
+        return memoRepository.save(request.toEntity());
     }
 
     public List<Memo> findAll() {
-        return MemoRepository.findAll();
+        return memoRepository.findAll();
     }
 
     public Memo findById(long id) {
-        return MemoRepository.findById(id)
+        return memoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
 
+    public List<Memo> findByRecipient(long recipient) {
+        return memoRepository.findByRecipient(recipient);
+    }
+
     public void delete(long id) {
-        MemoRepository.deleteById(id);
+        memoRepository.deleteById(id);
     }
 
     @Transactional
     public Memo update(long id, UpdateMemoRequest request) {
-        Memo article = MemoRepository.findById(id)
+        Memo article = memoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
         article.update(request.getWriter(), request.getContent(), request.getDate());
