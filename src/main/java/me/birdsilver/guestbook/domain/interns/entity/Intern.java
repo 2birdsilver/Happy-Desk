@@ -25,5 +25,8 @@ public class Intern {
     @Column(name = "Introduction", nullable = false)
     private String Introduction;
 
+    @Column(name = "photo_url", nullable = true)
+    private String photoUrl;
+
 
 }
