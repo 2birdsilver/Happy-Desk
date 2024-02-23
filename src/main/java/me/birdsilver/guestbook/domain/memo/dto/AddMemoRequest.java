@@ -15,6 +15,7 @@ public class AddMemoRequest {
     private String content;
     private Date date;
     private String password;
+    private  String shape;
 
     public Memo toEntity() {
         return Memo.builder()
@@ -23,6 +24,7 @@ public class AddMemoRequest {
                 .content(content)
                 .date(date)
                 .password(password)
+                .shape(shape)
                 .build();
     }
 }
