@@ -24,6 +24,4 @@ public class Intern {
     // 소개글
     @Column(name = "Introduction", nullable = false)
     private String Introduction;
-
-
 }
