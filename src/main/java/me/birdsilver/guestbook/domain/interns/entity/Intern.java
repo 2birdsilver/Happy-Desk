@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Intern {
 
-    // 멤버 id
+    // 멤버 idgi
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -23,7 +23,7 @@ public class Intern {
 
     // 소개글
     @Column(name = "Introduction", nullable = false)
-    private String Introduction;git 
+    private String Introduction;
 
     @Column(name = "photo_url", nullable = true)
     private String photoUrl;
