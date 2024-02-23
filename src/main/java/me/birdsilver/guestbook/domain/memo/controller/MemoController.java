@@ -32,15 +32,17 @@ public class MemoController {
     }
 
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Memo> getMemoById(@PathVariable long id) {
-//        Memo memo = memoService.findById(id);
-//        return ResponseEntity.ok(memo);
-//    }
+    // 메모 수정 페이지
+    @GetMapping("/update/{id}")
+    public ResponseEntity<Memo> getMemoById(@PathVariable long id) {
+        Memo memo = memoService.findById(id);
+        return ResponseEntity.ok(memo);
+    }
 
-    @GetMapping("/{recipient}")
-    public ResponseEntity<List<Memo>> getMemosByRecipient(@PathVariable Long recipient) {
-        List<Memo> memos = memoService.findByRecipient(recipient);
+    @GetMapping("/{recipientId}")
+    public ResponseEntity<List<Memo>> getMemosByRecipient(@PathVariable Long recipientId) {
+
+        List<Memo> memos = memoService.findByRecipient(recipientId);
         if (memos.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -56,7 +58,14 @@ public class MemoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Memo> updateMemo(@PathVariable long id, @RequestBody UpdateMemoRequest request) {
+    public ResponseEntity<?> updateMemo(@PathVariable long id, @RequestBody UpdateMemoRequest request) {
+        Memo memo = memoService.findById(id);
+
+        if (!request.getPassword().equals(memo.getPassword())) {
+            // 비밀번호가 다를 경우 UNAUTHORIZED 상태와 에러 메시지를 반환
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
+        }
+
         Memo updatedMemo = memoService.update(id, request);
         return ResponseEntity.ok(updatedMemo);
     }

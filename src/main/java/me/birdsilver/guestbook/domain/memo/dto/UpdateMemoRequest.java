@@ -13,4 +13,5 @@ public class UpdateMemoRequest {
     private String writer;
     private String content;
     private Date date;
+    private String password;
 }
