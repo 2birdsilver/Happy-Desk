@@ -25,7 +25,7 @@ public class Memo {
 
     // 받는자
     @Column(name = "recipient", nullable = false)
-    private String recipient;
+    private Long recipient;
 
     // 내용
     @Column(name = "content", nullable = false)
@@ -40,7 +40,7 @@ public class Memo {
     private String password;
 
     @Builder
-    public Memo(String writer, String recipient, String content, Date date, String password) {
+    public Memo(String writer, Long recipient, String content, Date date, String password) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;

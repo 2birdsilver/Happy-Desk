@@ -23,5 +23,8 @@ public class Intern {
 
     // 소개글
     @Column(name = "Introduction", nullable = false)
-    private String Introduction;
+    private String Introduction;git 
+
+    @Column(name = "photo_url", nullable = true)
+    private String photoUrl;
 }
