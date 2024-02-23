@@ -39,13 +39,17 @@ public class Memo {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "shape",nullable = false)
+    private String shape;
+
     @Builder
-    public Memo(String writer, Long recipient, String content, Date date, String password) {
+    public Memo(String writer, Long recipient, String content, Date date, String password, String shape) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
         this.date = LocalDate.now();
         this.password = password;
+        this.shape = shape;
     }
 
     public void update(String writer, String content, Date date) {
