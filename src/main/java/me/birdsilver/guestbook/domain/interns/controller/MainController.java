@@ -48,5 +48,10 @@ public class MainController {
 //        return "newMemo";
 //    }
 
+    /*react연동 test*/
+    @GetMapping("/api/hello")
+    public String test() {
+        return "Hello, world!";
+    }
 
 }
