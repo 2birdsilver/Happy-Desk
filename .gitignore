@@ -39,5 +39,8 @@ bin/
 ### VS Code ###
 .vscode/
 
+### React ###
+src/main/Happy-Desk-Front-main
+
 ### Mac OS ###
 .DS_Store
