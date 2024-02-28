@@ -42,14 +42,18 @@ public class Memo {
     @Column(name = "shape",nullable = false)
     private String shape;
 
+    @Column(name = "color",nullable = false)
+    private String color;
+
     @Builder
-    public Memo(String writer, Long recipient, String content, Date date, String password, String shape) {
+    public Memo(String writer, Long recipient, String content, Date date, String password, String shape, String color) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
         this.date = LocalDate.now();
         this.password = password;
         this.shape = shape;
+        this.color = color;
     }
 
     public void update(String writer, String content, Date date) {
