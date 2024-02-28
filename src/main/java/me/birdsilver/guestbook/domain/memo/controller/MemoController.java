@@ -59,12 +59,7 @@ public class MemoController {
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteMemo(@RequestBody DeleteMemoRequest request) {
-/*        System.out.println("deleteMemo메소드 실행!");
-        System.out.println("memoId: " + request.getMemoId());
-        System.out.println("password: " + request.getPassword());*/
         Long memoId = request.getMemoId();
-        System.out.println("memoId: " + memoId);
-        System.out.println("password: " + request.getPassword());
         Memo memo = memoService.findById(memoId);
 
         if (memo.getPassword().equals(request.getPassword())) {
