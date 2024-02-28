@@ -47,7 +47,7 @@ public class Memo {
     private String color;
 
     @Builder
-    public Memo(String writer, Long recipient, String content, Date date, String password, String shape, String color) {
+    public Memo(String writer, Long recipient, String content, String password, String shape, String color) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
@@ -57,9 +57,11 @@ public class Memo {
         this.color = color;
     }
 
-    public void update(String writer, String content, Date date) {
+    public void update(String writer, String content, String shape, String color) {
         this.writer = writer;
         this.content = content;
-        //수정일 추가?
+        this.date = LocalDateTime.now();
+        this.shape = shape;
+        this.color = color;
     }
 }

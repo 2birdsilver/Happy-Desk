@@ -14,4 +14,6 @@ public class UpdateMemoRequest {
     private String content;
     private Date date;
     private String password;
+    private String color;
+    private String shape;
 }

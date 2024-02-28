@@ -42,7 +42,7 @@ public class MemoService {
         Memo article = memoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
-        article.update(request.getWriter(), request.getContent(), request.getDate());
+        article.update(request.getWriter(), request.getContent(), request.getShape(), request.getColor());
 
         return article;
     }

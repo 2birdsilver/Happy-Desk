@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.birdsilver.guestbook.domain.memo.entity.Memo;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,6 @@ public class AddMemoRequest {
     private String writer;
     private Long recipient;
     private String content;
-    private Date date;
     private String password;
     private  String shape;
     private String color;
@@ -25,7 +25,6 @@ public class AddMemoRequest {
                 .writer(writer)
                 .recipient(recipient)
                 .content(content)
-                .date(date)
                 .password(password)
                 .shape(shape)
                 .color(color)
