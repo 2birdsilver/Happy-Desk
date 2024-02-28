@@ -25,6 +25,9 @@ public class MemoController {
 
     @PostMapping
     public ResponseEntity<Memo> addMemo(@RequestBody AddMemoRequest request) {
+        if (request.getContent() == null || request.getContent().isEmpty()) {
+            request.setContent(" ");
+        }
         Memo savedMemo = memoService.save(request);
         return new ResponseEntity<>(savedMemo, HttpStatus.CREATED);
     }
@@ -56,23 +59,21 @@ public class MemoController {
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteMemo(@RequestBody DeleteMemoRequest request) {
-        System.out.println("deleteMemo메소드 실행!");
+/*        System.out.println("deleteMemo메소드 실행!");
         System.out.println("memoId: " + request.getMemoId());
-        System.out.println("password: " + request.getPassword());
-        return ResponseEntity.ok().body(Map.of("success", true, "message", "메모 삭제 성공"));
-
-        /*Long memoId = request.getMemoId();
+        System.out.println("password: " + request.getPassword());*/
+        Long memoId = request.getMemoId();
         System.out.println("memoId: " + memoId);
         System.out.println("password: " + request.getPassword());
         Memo memo = memoService.findById(memoId);
 
         if (memo.getPassword().equals(request.getPassword())) {
             memoService.delete(memoId);
-            return ResponseEntity.ok(memo);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         }
         else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
-        }*/
+        }
 
     }
 
