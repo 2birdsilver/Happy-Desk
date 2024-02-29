@@ -33,6 +33,7 @@ public class Memo {
     private String content;
 
     // 작성일
+    @JsonFormat(pattern = "yyyy.MM.dd hh:mm:ss", timezone = "Asia/Seoul")
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
