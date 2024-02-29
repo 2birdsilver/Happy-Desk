@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/memo")
+@RequestMapping("/api/memo")
 public class MemoController {
 
     private final MemoService memoService;
