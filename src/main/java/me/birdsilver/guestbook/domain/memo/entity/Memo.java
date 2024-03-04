@@ -1,5 +1,6 @@
 package me.birdsilver.guestbook.domain.memo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
