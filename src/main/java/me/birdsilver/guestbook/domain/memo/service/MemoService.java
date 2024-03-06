@@ -30,7 +30,7 @@ public class MemoService {
     }
 
     public List<Memo> findByRecipient(long recipient) {
-        return memoRepository.findByRecipient(recipient);
+        return memoRepository.findByRecipientOrderByDateDesc(recipient);
     }
 
     public void delete(long id) {
