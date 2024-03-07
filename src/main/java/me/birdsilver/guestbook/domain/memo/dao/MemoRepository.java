@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface MemoRepository extends JpaRepository<Memo, Long> {
 
-    List<Memo> findByRecipient(Long recipient);
+    List<Memo> findByRecipientOrderByDateDesc(Long recipient);
 
 }
