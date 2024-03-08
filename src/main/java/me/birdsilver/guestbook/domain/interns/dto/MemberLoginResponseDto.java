@@ -13,11 +13,13 @@ public class MemberLoginResponseDto {
 
     private Long id;
     private String name;
+    private String avatarUrl;
 
     public static MemberLoginResponseDto of(Intern intern) {
         return MemberLoginResponseDto.builder()
                 .id(intern.getId())
                 .name(intern.getName())
+                .avatarUrl(intern.getAvatarUrl())
                 .build();
     }
 }

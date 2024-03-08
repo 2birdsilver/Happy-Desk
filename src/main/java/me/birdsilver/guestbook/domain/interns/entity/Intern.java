@@ -28,6 +28,9 @@ public class Intern {
     @Column(name = "photo_url", nullable = true)
     private String photoUrl;
 
+    @Column(name = "avatar_url", nullable = true)
+    private String avatarUrl;
+
     @Column(name = "nick", nullable = true)
     private String nick;
 
