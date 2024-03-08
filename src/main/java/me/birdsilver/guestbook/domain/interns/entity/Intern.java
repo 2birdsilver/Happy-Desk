@@ -1,17 +1,17 @@
 package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Intern {
 
-    // 멤버 idgi
+    // 멤버 id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -22,9 +22,27 @@ public class Intern {
     private String name;
 
     // 소개글
-    @Column(name = "Introduction", nullable = false)
-    private String Introduction;
+    @Column(name = "introduction", nullable = false)
+    private String introduction;
 
     @Column(name = "photo_url", nullable = true)
     private String photoUrl;
+
+    @Column(name = "avatar_url", nullable = true)
+    private String avatarUrl;
+
+    @Column(name = "nick", nullable = true)
+    private String nick;
+
+    @Column(name = "email", nullable = true)
+    private String email;
+
+    @Column(name = "password", nullable = true)
+    private String password;
+
+    @Column(name = "keyboard", nullable = true)
+    private String keyboard;
+
+    @Column(name = "mouse", nullable = true)
+    private String mouse;
 }
