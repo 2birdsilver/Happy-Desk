@@ -1,7 +1,8 @@
-package me.birdsilver.guestbook.domain.interns.entity;
+package me.birdsilver.guestbook.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.birdsilver.guestbook.domain.user.dto.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Intern implements UserDetails {
+public class User implements UserDetails {
 
     // 멤버 id
     @Id
@@ -52,10 +53,29 @@ public class Intern implements UserDetails {
     @Column(name = "mouse", nullable = true)
     private String mouse;
 
+    @Column(name = "birthday", nullable = true)
+    private String birthday;
+
+    @Column(name = "birthyear", nullable = true)
+    private String birthyear;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+
     @Builder
-    public Intern(String email, String password, String auth) {
+    public User(String name, String password, Role role) {
         this.email = email;
         this.password = password;
+        this.role = role;
+    }
+
+    public User update(String nick) {
+        this.nick = nick;
+
+        return this;
     }
 
 

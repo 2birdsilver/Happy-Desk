@@ -1,4 +1,4 @@
-package me.birdsilver.guestbook.domain.interns.dto;
+package me.birdsilver.guestbook.domain.user.dto;
 
 import lombok.*;
 
