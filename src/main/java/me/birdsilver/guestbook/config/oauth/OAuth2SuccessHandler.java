@@ -38,15 +38,18 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         System.out.println("로그인 성공!");
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        User intern = memberService.findByName((String) oAuth2User.getAttributes().get("name"));
+
+        System.out.println("OAuth2SuccessHandler.onAuthenticationSuccess메소드 실행!");
+        System.out.println("name: " + (String) oAuth2User.getAttributes().get("name"));
+        User user = memberService.findByName((String) oAuth2User.getAttributes().get("name"));
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
-        String refreshToken = tokenProvider.generateToken(intern, REFRESH_TOKEN_DURATION);
-        saveRefreshToken(intern.getId(), refreshToken);
+        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
+        saveRefreshToken(user.getId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
         // 엑세스 토큰 생성 -> 패스에 액세스 토큰을 추가
-        String accessToken = tokenProvider.generateToken(intern, ACCESS_TOKEN_DURATION);
+        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
         String targetUrl = getTargetUrl(accessToken);
 
         // 인증 관련 설정값, 쿠키 제거

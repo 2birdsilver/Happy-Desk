@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String name;
 
     // 소개글
-    @Column(name = "introduction", nullable = false)
+    @Column(name = "introduction", nullable = true)
     private String introduction;
 
     @Column(name = "photo_url", nullable = true)
@@ -59,21 +59,25 @@ public class User implements UserDetails {
     @Column(name = "birthyear", nullable = true)
     private String birthyear;
 
+    @Column(name = "mobile", nullable = true)
+    private String mobile;
+
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Role role;
 
 
     @Builder
-    public User(String name, String password, Role role) {
-        this.email = email;
-        this.password = password;
+    public User(String name, String birthday, String mobile, Role role) {
+        this.name = name;
+        this.birthday = birthday;
+        this.mobile = mobile;
         this.role = role;
     }
 
-    public User update(String nick) {
-        this.nick = nick;
+    public User update(String mobile) {
+        this.mobile = mobile;
 
         return this;
     }
