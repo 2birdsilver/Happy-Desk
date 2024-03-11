@@ -1,8 +1,9 @@
 package me.birdsilver.guestbook.domain.interns.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.interns.dto.MemberLoginRequestDto;
 import me.birdsilver.guestbook.domain.interns.dto.MemberLoginResponseDto;
+import me.birdsilver.guestbook.domain.interns.dto.UpdateInternRequestDto;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,6 +45,39 @@ public class MemberService {
         if (optionMember.isEmpty())
             return null;
         return optionMember.get();
+    }
+
+    /** 마이페이지 비밀번호 확인 */
+    public boolean checkMember(Long id, String password) {
+        Intern intern = findById(id);
+
+        if (intern.getPassword().equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** 마이페이지 정보 수정 */
+    @Transactional
+    public Intern updateUserInfo(UpdateInternRequestDto request) {
+        Intern intern = findById(request.getId());
+        intern.update(request);
+        return intern;
+    }
+
+    /** 마이페이지 이미지 저장 */
+    @Transactional
+    public Intern addImg(Long id, String path) {
+        Intern intern = findById(id);
+        intern.upload(path);
+        return intern;
+    }
+
+    /** 키보드 이미지 경로 가져오기 */
+    public String getKeyboard(Long id) {
+        Intern intern = findById(id);
+        return intern.getKeyboard();
     }
 
 }

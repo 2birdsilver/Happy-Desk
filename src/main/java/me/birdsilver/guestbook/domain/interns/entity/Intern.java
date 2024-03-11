@@ -2,6 +2,7 @@ package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.birdsilver.guestbook.domain.interns.dto.UpdateInternRequestDto;
 
 @Entity
 @Getter
@@ -45,4 +46,12 @@ public class Intern {
 
     @Column(name = "mouse", nullable = true)
     private String mouse;
+
+    public void update(UpdateInternRequestDto requestDto) {
+        this.introduction = requestDto.getIntroduction();
+//        this.keyboard = requestDto.getKeyboard();
+    }
+    public void upload(String path) {
+        this.keyboard = path;
+    }
 }
