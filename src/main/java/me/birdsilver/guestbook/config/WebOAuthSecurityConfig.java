@@ -38,10 +38,10 @@ public class WebOAuthSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        /*http.csrf().disable()
+        http.csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
-                .logout().disable();*/
+                .logout().disable();
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -50,7 +50,7 @@ public class WebOAuthSecurityConfig {
 
 
         http.authorizeRequests()
-                .requestMatchers("/api/token", "/login", "/").permitAll()
+                .requestMatchers("/api/token", "/login", "/ ").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 

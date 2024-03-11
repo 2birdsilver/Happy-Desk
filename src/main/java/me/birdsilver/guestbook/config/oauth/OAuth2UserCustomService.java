@@ -42,14 +42,13 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
         Collection<? extends GrantedAuthority> getAuthorities = oAuth2User.getAuthorities();
 
-        User user = memberRepository.findByName(name)
+        User user = memberRepository.findByNameAndBirthday(name, birthday)
+                .map(entity -> entity.update(mobile))
                 .orElse(User.builder()
                         .name(name)
                         .birthday(birthday)
                         .mobile(mobile)
                         .build());
-
-        user.update(mobile);
 
         return memberRepository.save(user);
     }

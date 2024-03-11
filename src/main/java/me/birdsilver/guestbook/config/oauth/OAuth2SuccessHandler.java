@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -35,13 +36,12 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        System.out.println("로그인 성공!");
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-
-        System.out.println("OAuth2SuccessHandler.onAuthenticationSuccess메소드 실행!");
-        System.out.println("name: " + (String) oAuth2User.getAttributes().get("name"));
-        User user = memberService.findByName((String) oAuth2User.getAttributes().get("name"));
+        Map<String, Object> userInfo = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+        String name = (String) userInfo.get("name");
+        String birthday = (String) userInfo.get("birthday");
+        User user = memberService.findByNameAndBirthday(name, birthday);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);

@@ -34,10 +34,17 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + name));
     }
 
+
     // email로 멤버 조회
     public User findByEmail(String email) {
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    // 이름과 생일로 조회
+    public User findByNameAndBirthday(String name, String birthday) {
+        return memberRepository.findByNameAndBirthday(name, birthday)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + name + " and " + birthday));
     }
 
     // 단순 로그인
