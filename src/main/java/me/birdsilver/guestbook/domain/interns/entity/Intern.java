@@ -51,7 +51,8 @@ public class Intern {
         this.introduction = requestDto.getIntroduction();
 //        this.keyboard = requestDto.getKeyboard();
     }
-    public void upload(String path) {
-        this.keyboard = path;
+    public void upload(String keyboard, String mouse) {
+        this.keyboard = keyboard;
+        this.mouse = mouse;
     }
 }

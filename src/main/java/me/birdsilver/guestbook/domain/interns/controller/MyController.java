@@ -7,6 +7,7 @@ import me.birdsilver.guestbook.domain.interns.dto.MemberLoginRequestDto;
 import me.birdsilver.guestbook.domain.interns.dto.MemberLoginResponseDto;
 import me.birdsilver.guestbook.domain.interns.dto.UpdateInternRequestDto;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.service.FileService;
 import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.nio.file.Files;
 public class MyController {
 
     private final MemberService memberService;
+    private final FileService fileService;
 
     /** 간단 로그인 */
     @PostMapping("/login")
@@ -42,123 +44,58 @@ public class MyController {
         @RequestParam(value = "password") String password,
         @RequestParam(value = "introduction") String introduction,
         @RequestParam(value = "keyboard", required = false) MultipartFile keyboard[],
+        @RequestParam(value = "mouse", required = false) MultipartFile mouse[],
         HttpServletRequest request, HttpServletResponse response, Model model)
-        {
+    {
         // 1. 비밀번호 확인
         if (!memberService.checkMember(userId, password)) {
           return ResponseEntity.badRequest().body("Invalid user or password");
         }
+
         // 2. 프로필 소개글 업데이트
         UpdateInternRequestDto internRequestDto = new UpdateInternRequestDto(userId, introduction);
         Intern intern = memberService.updateUserInfo(internRequestDto);
 
-        // 3. 키보드 이미지 업로드
-        // 이미지가 있는경우
-        if (keyboard != null) {
-            MultipartFile multi = keyboard[0];
-            String path = "c:\\img";
-            System.out.println(path);
+        // 3. 이미지가 있는 경우 이미지 업로드
+        String setKeyboardPath = fileService.uploadImg(userId, keyboard, "keyboard");
+        String setMousePath = fileService.uploadImg(userId, mouse, "mouse");
 
-            try {
-                // 파일 경로 설정
-                String uploadpath = path;
-                String originFilename = multi.getOriginalFilename();
-                String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
-                // String saveFileName = genSaveFileName(extName);
-                String saveFileName = "keyboard_" +  userId + extName;
+        // 3-1. 이미지 db에 저장
+        Intern interns = memberService.addImg(userId, setKeyboardPath, setMousePath);
+        return ResponseEntity.status(HttpStatus.CREATED).body(interns);
 
-                System.out.println("uploadpath : " + uploadpath);
-                System.out.println("originFilename : " + originFilename);
-                System.out.println("extensionName : " + extName);
-                System.out.println("saveFileName : " + saveFileName);
+    }
 
-                // 파일 경로 최종
-                String path2 = System.getProperty("user.dir");
-                // # 윈도우
-                 String path3 = "\\src\\main\\resources\\image\\keyboard";
-                // # 리눅스
-                // String path3 = "/src/main/resources/image/keyboard_" + id;
-                System.out.println("Working Directory = " + path2 + path3);
+    /** 이미지 가져오기 (키보드 또는 마우스) */
+    @GetMapping(value = "/image/{type}/{id}")
+    public ResponseEntity<?> returnImage(@PathVariable String type, @PathVariable Long id) {
+        String baseDir = System.getProperty("user.dir") + "\\src\\main\\resources\\";
+        String defaultImageName = type + "_0.png"; // Default image for both types
 
-                // 디비 파일 경로
-                String setpath = "/image/keyboard/" + saveFileName;
-                System.out.println("setpath =" + setpath);
+        // Determine the directory based on type
+        String directoryPath = baseDir + "image\\" + (type.equals("keyboard") ? "keyboard\\" : "mouse\\");
+//        System.out.println("directoryPath:" + directoryPath);
 
-                if (!multi.isEmpty()) {
-                    File forder = new File(path2 + path3);
-                    forder.mkdir();
-                    System.out.println("forder" + forder);
+        // Attempt to find the specific image for the given ID
+        File file = new File(baseDir + "\\" + memberService.getImagePath(type, id));
 
-                    // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-                    if (!forder.exists()) {
-                        try {
-                            forder.mkdirs(); // 폴더 생성합니다.
-                            System.out.println("폴더가 생성되었습니다.");
-                        } catch (Exception e) {
-                            e.getStackTrace();
-                        }
-                    } else {
-                        System.out.println("이미 폴더가 생성되어 있습니다.");
-                    }
-                    // 파일 저장 경로/파일이름
-                    File file = new File(path2 + path3, saveFileName);
-                    // 파일 저장
-                    multi.transferTo(file);
-                    // files 등록
-                    memberService.addImg(userId, setpath);
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-                }
-            }
-            Intern interns = memberService.findById(userId);
-            return ResponseEntity.status(HttpStatus.CREATED).body(interns);
+//        System.out.println("file:" + memberService.getImagePath(type, id));
+        // Fall back to default image if the specific one does not exist
+        if (!file.exists()) {
+            file = new File(directoryPath + defaultImageName);
         }
 
-    /** 키보드 이미지 가져오기 */
-    @GetMapping(value = "/keyboard/{id}")
-    public ResponseEntity<?> returnImage(@PathVariable Long id) {
-        String path1 = System.getProperty("user.dir");
-
-        // # 윈도우
-         String path2 = "\\src\\main\\resources\\";
-
-        // # 리눅스
-//        String path2 = "/src/main/resources/image/keyboard/"
-
-        System.out.println("keyboard: " + memberService.getKeyboard(id));
-
-        File file = new File("");
-
-        File file1 = new File(path1 + path2 + memberService.getKeyboard(id));
-        // # 윈도우
-         File file2 = new File(path1 + "\\src\\main\\resources\\image\\keyboard\\keyboard_0.png");
-        // # 리눅스
-//        File file2 = new File(path1 + "/src/main/resources/keyboard/keyboard_0.png");
-
-        if (file1.exists()) {
-            file = file1;
-        } else {
-            file = file2;
-        }
-
-        // 저장된 이미지파일의 이진데이터 형식을 구함
-        byte[] result = null;
-        ResponseEntity<byte[]> entity = null;
+        // Try to return the image file as a byte array
         try {
-            result = FileCopyUtils.copyToByteArray(file);
+            byte[] imageData = FileCopyUtils.copyToByteArray(file);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", Files.probeContentType(file.toPath()));
 
-            // 2. header
-            HttpHeaders header = new HttpHeaders();
-            header.add("Content-type", Files.probeContentType(file.toPath())); // 파일의 컨텐츠타입을 직접 구해서 header에 저장
-
-            // 3. 응답본문
-            entity = new ResponseEntity<>(result, header, HttpStatus.OK);// 데이터, 헤더, 상태값
+            return new ResponseEntity<>(imageData, headers, HttpStatus.OK);
         } catch (IOException e) {
-            e.printStackTrace();
+            // Log the error or handle it appropriately
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving image");
         }
-
-        return entity;
     }
 
 

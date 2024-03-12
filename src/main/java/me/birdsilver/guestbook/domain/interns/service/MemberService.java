@@ -68,16 +68,23 @@ public class MemberService {
 
     /** 마이페이지 이미지 저장 */
     @Transactional
-    public Intern addImg(Long id, String path) {
+    public Intern addImg(Long id, String keyboard, String mouse) {
         Intern intern = findById(id);
-        intern.upload(path);
+        intern.upload(keyboard, mouse);
         return intern;
     }
 
-    /** 키보드 이미지 경로 가져오기 */
-    public String getKeyboard(Long id) {
+    /** 이미지 경로 가져오기 */
+    public String getImagePath(String type, Long id) {
         Intern intern = findById(id);
-        return intern.getKeyboard();
+        if ("keyboard".equals(type)) {
+            return intern.getKeyboard();
+        } else if ("mouse".equals(type)) {
+            return intern.getMouse();
+        } else {
+            return "";
+        }
+
     }
 
 }
