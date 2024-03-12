@@ -27,11 +27,7 @@ public class MyController {
 
     private final MemberService memberService;
 
-    /**
-     * 로그인
-     * @param requestDto
-     * @return 응답
-     */
+    /** 간단 로그인 */
     @PostMapping("/login")
     public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto requestDto) {
         MemberLoginResponseDto responseDto = memberService.login(requestDto.getEmail(), requestDto.getPassword());
@@ -39,7 +35,7 @@ public class MyController {
         return  ResponseEntity.ok(responseDto);
     }
 
-    /** 내 정보 수정 + 첨부파일 포함 (여러장 가능) */
+    /** 내 정보 수정 + 첨부파일 포함 */
     @PostMapping("/myinfo/{id}")
     public ResponseEntity<?> updateMyinfo(
         @RequestParam(value = "userId") Long userId,
@@ -78,9 +74,9 @@ public class MyController {
 
                 // 파일 경로 최종
                 String path2 = System.getProperty("user.dir");
-                // 윈도우
+                // # 윈도우
                  String path3 = "\\src\\main\\resources\\image\\keyboard";
-                // 리눅스
+                // # 리눅스
                 // String path3 = "/src/main/resources/image/keyboard_" + id;
                 System.out.println("Working Directory = " + path2 + path3);
 
@@ -119,25 +115,25 @@ public class MyController {
             return ResponseEntity.status(HttpStatus.CREATED).body(interns);
         }
 
-    // 키보드 이미지 가져오기
+    /** 키보드 이미지 가져오기 */
     @GetMapping(value = "/keyboard/{id}")
     public ResponseEntity<?> returnImage(@PathVariable Long id) {
         String path1 = System.getProperty("user.dir");
 
-        // 윈도우
-         String path2 = "\\src\\main\\resources\\image\\keyboard\\";
+        // # 윈도우
+         String path2 = "\\src\\main\\resources\\";
 
-        // 리눅스
+        // # 리눅스
 //        String path2 = "/src/main/resources/image/keyboard/"
 
-        System.out.println(path1 + path2 + "keyboard_" + id);
+        System.out.println("keyboard: " + memberService.getKeyboard(id));
 
         File file = new File("");
 
         File file1 = new File(path1 + path2 + memberService.getKeyboard(id));
-        // 윈도우
+        // # 윈도우
          File file2 = new File(path1 + "\\src\\main\\resources\\image\\keyboard\\keyboard_0.png");
-        // 리눅스
+        // # 리눅스
 //        File file2 = new File(path1 + "/src/main/resources/keyboard/keyboard_0.png");
 
         if (file1.exists()) {

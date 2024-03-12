@@ -19,18 +19,18 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    // 모든 멤버 조회
+    /** 모든 멤버 조회 */
     public List<Intern> findAll() {
         return memberRepository.findAll();
     }
 
-    // id로 멤버 조회
+    /** id로 멤버 조회 */
     public Intern findById(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
 
-    // 단순 로그인
+    /** 단순 로그인 */
     public MemberLoginResponseDto login(String email, String password) {
         Optional<MemberLoginResponseDto> optionMember = null;
         Intern intern = memberRepository.findByEmail(email)
