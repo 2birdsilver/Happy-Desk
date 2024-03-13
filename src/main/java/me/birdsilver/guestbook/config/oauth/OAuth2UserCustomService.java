@@ -38,16 +38,18 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         String name = (String) response.get("name");
         String birthday = (String) response.get("birthday");
 //        String birthyear = (String) response.get("birthyear");
-        String mobile = (String) response.get("mobile");
+//        String mobile = (String) response.get("mobile");
+        String email = (String) response.get("email");
 
         Collection<? extends GrantedAuthority> getAuthorities = oAuth2User.getAuthorities();
 
-        User user = memberRepository.findByNameAndBirthday(name, birthday)
-                .map(entity -> entity.update(mobile))
+        User user = memberRepository.findByName(name)
+                .map(entity -> entity.update(email))
+                .map(entity -> entity.update(birthday))
                 .orElse(User.builder()
                         .name(name)
                         .birthday(birthday)
-                        .mobile(mobile)
+                        .email(email)
                         .build());
 
         return memberRepository.save(user);

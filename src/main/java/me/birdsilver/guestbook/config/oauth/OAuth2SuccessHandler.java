@@ -27,7 +27,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
-    public static final String REDIRECT_PATH = "/articles";
+    public static final String REDIRECT_PATH = "/";
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -37,11 +37,14 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
+        System.out.println("OAuth2SuccessHandler.onAuthenticationSuccess메서드 실행!");
+
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> userInfo = (Map<String, Object>) oAuth2User.getAttributes().get("response");
         String name = (String) userInfo.get("name");
+        String email = (String) userInfo.get("email");
         String birthday = (String) userInfo.get("birthday");
-        User user = memberService.findByNameAndBirthday(name, birthday);
+        User user = memberService.findByName(name);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);

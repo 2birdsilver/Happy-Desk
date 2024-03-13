@@ -6,6 +6,7 @@ import me.birdsilver.guestbook.domain.memo.dto.UpdateMemoRequest;
 import me.birdsilver.guestbook.domain.memo.entity.Memo;
 import me.birdsilver.guestbook.domain.memo.dto.AddMemoRequest;
 import me.birdsilver.guestbook.domain.memo.dao.MemoRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +46,13 @@ public class MemoService {
         article.update(request.getWriter(), request.getContent(), request.getShape(), request.getColor());
 
         return article;
+    }
+
+    // 게시글을 작성한 유저인지 확인
+    private static void authorizeArticleAuthor(Memo memo) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!memo.getWriter().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 }

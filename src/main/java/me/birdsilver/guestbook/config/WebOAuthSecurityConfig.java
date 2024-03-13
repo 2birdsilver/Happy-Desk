@@ -50,8 +50,8 @@ public class WebOAuthSecurityConfig {
 
 
         http.authorizeRequests()
-                .requestMatchers("/api/token", "/login", "/ ").permitAll()
-                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/api/**", "/login", "/ ").permitAll()
+//                .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
@@ -59,7 +59,7 @@ public class WebOAuthSecurityConfig {
                 .authorizationEndpoint()
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
-//                .successHandler(oAuth2SuccessHandler())
+                .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint()
                 .userService(oAuth2UserCustomService);
 
