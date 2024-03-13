@@ -39,7 +39,7 @@ public class MyController {
 
     /** 내 정보 수정 + 첨부파일 포함 */
     @PostMapping("/myinfo/{id}")
-    public ResponseEntity<?> updateMyinfo(
+    public ResponseEntity<String> updateMyinfo(
         @RequestParam(value = "userId") Long userId,
         @RequestParam(value = "password") String password,
         @RequestParam(value = "introduction") String introduction,
@@ -56,13 +56,20 @@ public class MyController {
         UpdateInternRequestDto internRequestDto = new UpdateInternRequestDto(userId, introduction);
         Intern intern = memberService.updateUserInfo(internRequestDto);
 
-        // 3. 이미지가 있는 경우 이미지 업로드
-        String setKeyboardPath = fileService.uploadImg(userId, keyboard, "keyboard");
-        String setMousePath = fileService.uploadImg(userId, mouse, "mouse");
+        String setKeyboardPath = "";
+        String setMousePath = "";
 
-        // 3-1. 이미지 db에 저장
-        Intern interns = memberService.addImg(userId, setKeyboardPath, setMousePath);
-        return ResponseEntity.status(HttpStatus.CREATED).body(interns);
+        // 3. 이미지가 있는 경우 이미지 업로드
+        if (keyboard != null && keyboard.length > 0 && !keyboard[0].isEmpty()) {
+            setKeyboardPath = fileService.uploadImg(userId, keyboard, "keyboard");
+            memberService.addImg(userId, "keyboard", setKeyboardPath);
+        }
+        if (mouse != null && mouse.length > 0 && !mouse[0].isEmpty()) {
+            setMousePath = fileService.uploadImg(userId, mouse, "mouse");
+            memberService.addImg(userId, "mouse", setMousePath);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("success");
 
     }
 

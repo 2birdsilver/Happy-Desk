@@ -49,10 +49,14 @@ public class Intern {
 
     public void update(UpdateInternRequestDto requestDto) {
         this.introduction = requestDto.getIntroduction();
-//        this.keyboard = requestDto.getKeyboard();
     }
-    public void upload(String keyboard, String mouse) {
-        this.keyboard = keyboard;
-        this.mouse = mouse;
+    public void upload(String type, String file) {
+        if ("keyboard".equals(type)) {
+            this.keyboard = file;
+        }
+        if ("mouse".equals(type)) {
+            this.mouse = file;
+        }
     }
+
 }

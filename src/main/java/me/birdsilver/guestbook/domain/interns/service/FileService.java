@@ -17,9 +17,6 @@ public class FileService {
 
     public String uploadImg(Long userId, MultipartFile[] files, String deviceType) {
         MultipartFile multi = files[0];
-        if (multi.isEmpty()) {
-            return ""; // Early return if the file is empty
-        }
 
         String directoryName = deviceType.equals("keyboard") ? "keyboard" : "mouse";
 

@@ -68,10 +68,14 @@ public class MemberService {
 
     /** 마이페이지 이미지 저장 */
     @Transactional
-    public Intern addImg(Long id, String keyboard, String mouse) {
+    public void addImg(Long id, String type, String filePath) {
         Intern intern = findById(id);
-        intern.upload(keyboard, mouse);
-        return intern;
+        if ("keyboard".equals(type)) {
+             intern.upload("keyboard", filePath);
+        }
+        if ("mouse".equals(type)) {
+            intern.upload("mouse", filePath);
+        }
     }
 
     /** 이미지 경로 가져오기 */
