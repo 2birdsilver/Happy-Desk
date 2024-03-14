@@ -16,6 +16,11 @@ public class UserViewController {
         return "naverLogin";
     }
 
+    @GetMapping("/login2")
+    public String login2() {
+        return "oauthLogin";
+    }
+
     @GetMapping("/naverLoginSuccess")
     public String naverLoginSuccess(@AuthenticationPrincipal OAuth2User principal, Model model) {
         model.addAttribute("user", principal.getAttributes());
