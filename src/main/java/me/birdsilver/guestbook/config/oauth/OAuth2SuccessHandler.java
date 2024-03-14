@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
@@ -26,7 +27,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
-    public static final String REDIRECT_PATH = "/articles";
+    public static final String REDIRECT_PATH = "/";
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -35,18 +36,21 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        System.out.println("로그인 성공!");
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        User intern = memberService.findByName((String) oAuth2User.getAttributes().get("name"));
+        Map<String, Object> userInfo = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+        String name = (String) userInfo.get("name");
+        String email = (String) userInfo.get("email");
+        String birthday = (String) userInfo.get("birthday");
+        User user = memberService.findByName(name);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
-        String refreshToken = tokenProvider.generateToken(intern, REFRESH_TOKEN_DURATION);
-        saveRefreshToken(intern.getId(), refreshToken);
+        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
+        saveRefreshToken(user.getId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
         // 엑세스 토큰 생성 -> 패스에 액세스 토큰을 추가
-        String accessToken = tokenProvider.generateToken(intern, ACCESS_TOKEN_DURATION);
+        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
         String targetUrl = getTargetUrl(accessToken);
 
         // 인증 관련 설정값, 쿠키 제거

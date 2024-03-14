@@ -1,6 +1,7 @@
 package me.birdsilver.guestbook.config;
 
 import lombok.RequiredArgsConstructor;
+import me.birdsilver.guestbook.config.TokenAuthenticationFilter;
 import me.birdsilver.guestbook.config.jwt.TokenProvider;
 import me.birdsilver.guestbook.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import me.birdsilver.guestbook.config.oauth.OAuth2SuccessHandler;
@@ -16,8 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -30,16 +29,15 @@ public class WebOAuthSecurityConfig {
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberService memberService;
 
-    // 스프링 시큐리티 기능 비활성화
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
-                .requestMatchers("/static/**");
+                .requestMatchers("/img/**", "/css/**", "/js/**");
     }
 
-    // 토큰 방식으로 인증을 하기 때문에 기존에 사용하던 폼로그인, 세션 비활성화
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http.csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
@@ -48,25 +46,27 @@ public class WebOAuthSecurityConfig {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // 헤더를 확인할 커스텀 필터 추가
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        
-        // 토큰 재발급 URL은 인증 없이 접근 가능하도록 설정, 나머지 API URL은 인증 필요
+
+
         http.authorizeRequests()
-                .requestMatchers("/**").permitAll()
-                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/api/**", "/login", "/ ").permitAll()
+//                .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
                 .loginPage("/login")
                 .authorizationEndpoint()
-                    .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
+                .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint()
-                    .userService(oAuth2UserCustomService);
-        
-        // /api로 시작하는 url인 경우 401상태 코드를 반환하도록 예외 처리
+                .userService(oAuth2UserCustomService);
+
+        http.logout()
+                .logoutSuccessUrl("/login");
+
+
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));

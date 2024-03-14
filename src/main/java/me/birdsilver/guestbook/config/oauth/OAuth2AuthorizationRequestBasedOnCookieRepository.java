@@ -30,8 +30,6 @@ public class OAuth2AuthorizationRequestBasedOnCookieRepository implements Author
             removeAuthorizationRequestCookies(request, response);
             return;
         }
-        System.out.println("OAuth2AuthorizationRequestBasedOnCookieRepository.saveAuthorizationRequest메서드 실행!");
-        System.out.println("authorizationRequest: " + authorizationRequest);
 
         CookieUtil.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
     }
