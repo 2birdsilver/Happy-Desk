@@ -38,25 +38,33 @@ public class Intern {
     @Column(name = "email", nullable = true)
     private String email;
 
-    @Column(name = "password", nullable = true)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "keyboard", nullable = true)
-    private String keyboard;
+    @Column(name = "keyboard_img", nullable = true)
+    private byte[] keyboardImg;
 
-    @Column(name = "mouse", nullable = true)
-    private String mouse;
+    @Column(name = "mouse_img", nullable = true)
+    private byte[] mouseImg;
+
+    @Column(name = "keyboard_type", nullable = true)
+    private String keyboardType;
+
+    @Column(name = "mouse_type", nullable = true)
+    private String mouseType;
 
     public void update(UpdateInternRequestDto requestDto) {
         this.introduction = requestDto.getIntroduction();
     }
-    public void upload(String type, String file) {
+
+    public void uploadImg(String type, byte[] file, String mediaType) {
         if ("keyboard".equals(type)) {
-            this.keyboard = file;
+            this.keyboardImg = file;
+            this.keyboardType = mediaType;
         }
         if ("mouse".equals(type)) {
-            this.mouse = file;
+            this.mouseImg = file;
+            this.mouseType = mediaType;
         }
     }
-
 }

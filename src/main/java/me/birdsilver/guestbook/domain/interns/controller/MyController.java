@@ -11,15 +11,13 @@ import me.birdsilver.guestbook.domain.interns.service.FileService;
 import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,7 +36,7 @@ public class MyController {
     }
 
     /** 내 정보 수정 + 첨부파일 포함 */
-    @PostMapping("/myinfo/{id}")
+    @PostMapping("/myinfo/update")
     public ResponseEntity<String> updateMyinfo(
         @RequestParam(value = "userId") Long userId,
         @RequestParam(value = "password") String password,
@@ -56,54 +54,47 @@ public class MyController {
         UpdateInternRequestDto internRequestDto = new UpdateInternRequestDto(userId, introduction);
         Intern intern = memberService.updateUserInfo(internRequestDto);
 
-        String setKeyboardPath = "";
-        String setMousePath = "";
 
-        // 3. 이미지가 있는 경우 이미지 업로드
-        if (keyboard != null && keyboard.length > 0 && !keyboard[0].isEmpty()) {
-            setKeyboardPath = fileService.uploadImg(userId, keyboard, "keyboard");
-            memberService.addImg(userId, "keyboard", setKeyboardPath);
-        }
-        if (mouse != null && mouse.length > 0 && !mouse[0].isEmpty()) {
-            setMousePath = fileService.uploadImg(userId, mouse, "mouse");
-            memberService.addImg(userId, "mouse", setMousePath);
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("success");
-
-    }
-
-    /** 이미지 가져오기 (키보드 또는 마우스) */
-    @GetMapping(value = "/image/{type}/{id}")
-    public ResponseEntity<?> returnImage(@PathVariable String type, @PathVariable Long id) {
-        String baseDir = System.getProperty("user.dir") + "\\src\\main\\resources\\";
-        String defaultImageName = type + "_0.png"; // Default image for both types
-
-        // Determine the directory based on type
-        String directoryPath = baseDir + "image\\" + (type.equals("keyboard") ? "keyboard\\" : "mouse\\");
-//        System.out.println("directoryPath:" + directoryPath);
-
-        // Attempt to find the specific image for the given ID
-        File file = new File(baseDir + "\\" + memberService.getImagePath(type, id));
-
-//        System.out.println("file:" + memberService.getImagePath(type, id));
-        // Fall back to default image if the specific one does not exist
-        if (!file.exists()) {
-            file = new File(directoryPath + defaultImageName);
-        }
-
-        // Try to return the image file as a byte array
         try {
-            byte[] imageData = FileCopyUtils.copyToByteArray(file);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", Files.probeContentType(file.toPath()));
+            // 키보드 이미지가 있는 경우 이미지 변환 및 업로드
+            if (keyboard != null && !keyboard[0].isEmpty()) {
+                String extName = fileService.extractFileExt(keyboard[0]);
+                byte[] keyboardBytes = keyboard[0].getBytes();
+                fileService.updateUserImage(userId, "keyboard", keyboardBytes, extName);
+            }
 
-            return new ResponseEntity<>(imageData, headers, HttpStatus.OK);
+            // 마우스 이미지가 있는 경우 이미지 변환 및 업로드
+            if (mouse != null && !mouse[0].isEmpty()) {
+                String extName = fileService.extractFileExt(mouse[0]);
+                byte[] mouseBytes = mouse[0].getBytes();
+                fileService.updateUserImage(userId, "mouse", mouseBytes, extName);
+            }
         } catch (IOException e) {
-            // Log the error or handle it appropriately
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving image");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body("success");
+    }
+
+    /** 이미지 가져오기 */
+    @GetMapping("/img/{type}/{id}")
+    public ResponseEntity<byte[]> getKeyboardImage(@PathVariable String type, @PathVariable Long id) {
+        byte[] img = fileService.getImage(type, id);
+
+        if (img == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            MediaType mediaType = fileService.getImageExt(type,id);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setCacheControl("no-cache, no-store, must-revalidate");
+            headers.setPragma("no-cache");
+            headers.setExpires(0);
+            headers.setContentType(mediaType);
+            return new ResponseEntity<>(img, headers, HttpStatus.OK);
         }
     }
+
+
 
 
 

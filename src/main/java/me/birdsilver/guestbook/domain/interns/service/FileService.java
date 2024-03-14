@@ -1,13 +1,12 @@
 package me.birdsilver.guestbook.domain.interns.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
 
 @RequiredArgsConstructor
 @Service
@@ -15,58 +14,70 @@ public class FileService {
 
     private final MemberRepository memberRepository;
 
-    public String uploadImg(Long userId, MultipartFile[] files, String deviceType) {
-        MultipartFile multi = files[0];
+    /** id 로 인턴 찾기 */
+    public Intern findById(long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    }
 
-        String directoryName = deviceType.equals("keyboard") ? "keyboard" : "mouse";
+    /** DB 에 이미지 저장 */
+    @Transactional
+    public void updateUserImage(Long id, String type, byte[] file, String mediaType) {
+        Intern intern = findById(id);
 
-        try {
-            // 파일 경로 설정
-            String originFilename = multi.getOriginalFilename();
-            String extName = originFilename.substring(originFilename.lastIndexOf("."));
-            String saveFileName = directoryName + "_" +  userId + extName;
+        intern.uploadImg(type, file, mediaType);
+    }
 
-            String path = System.getProperty("user.dir") + "\\src\\main\\resources\\image\\" + directoryName;
+    /** DB에 파일 확장자 저장 */
+    public String extractFileExt(MultipartFile file) {
+        MultipartFile multi = file;
+        String originFilename = multi.getOriginalFilename();
+        String extName = originFilename.substring(originFilename.lastIndexOf(".") + 1);
+//        System.out.println("extensionName : " + extName);
+        return extName;
+    }
 
-            System.out.println("uploadpath : " + path);
-            System.out.println("originFilename : " + originFilename);
-            System.out.println("extensionName : " + extName);
-            System.out.println("saveFileName : " + saveFileName);
+    /** 이미지 파일 가져오기 */
+    public byte[] getImage(String type, Long id) {
+        Intern intern = findById(id);
 
-//            // 파일 경로 최종
-//            String path2 = System.getProperty("user.dir");
-//            // # 윈도우
-//            String path3 = "\\src\\main\\resources\\image\\keyboard";
-//            // # 리눅스
-//            // String path3 = "/src/main/resources/image/keyboard_" + id;
-//            System.out.println("Working Directory = " + path2 + path3);
+        if ("keyboard".equals(type)) {
+            return intern.getKeyboardImg();
+        }
+        if ("mouse".equals(type)) {
+            return intern.getMouseImg();
+        }
+        return new byte[0];
+    }
 
-            // Ensure the directory exists
-            File directory = new File(path);
-            if (!directory.exists()) {
-                directory.mkdirs(); // Create the directory if it doesn't exist
-                System.out.println("Directory created: " + directory.getPath());
-            } else {
-                System.out.println("Directory already exists.");
-            }
+    /** 이미지 확장자 가져오기 */
+    public MediaType getImageExt(String type, Long id) {
+        Intern intern = findById(id);
 
-            // File save path
-            File file = new File(directory, saveFileName);
-            // Save the file
-            multi.transferTo(file);
-
-            // Set the database path
-            String setpath = "/image/" + directoryName + "/" + saveFileName;
-            System.out.println("Database path: " + setpath);
-
-            return setpath;
-
-        } catch (Exception e) {
-                System.out.println(e);
+        String imgMediaType = "";
+        if ("keyboard".equals(type)) {
+            imgMediaType = intern.getKeyboardType();
+        }
+        if ("mouse".equals(type)) {
+            imgMediaType = intern.getMouseType();
         }
 
-        return directoryName;
+        switch (imgMediaType.toLowerCase()) {
+            case "png":
+                return MediaType.IMAGE_PNG;
+            case "jpg":
+            case "jpeg":
+                return MediaType.IMAGE_JPEG;
+            case "gif":
+                return MediaType.IMAGE_GIF;
+            // 기타 지원하는 이미지 형식에 대한 케이스 추가
+            default:
+                return MediaType.APPLICATION_OCTET_STREAM; // 알려지지 않은 파일 타입
+        }
     }
+
+
+
 
 
 
