@@ -31,13 +31,10 @@ public class TokenApiController {
     }
 
     @PostMapping("/api/userInfo")
-    public ResponseEntity<User> getUserInfo(@Nullable Principal principal) {
-        User user = new User();
+    public ResponseEntity<User> getUserInfo(Principal principal) {
 
-        if (principal != null) {
             String email = principal.getName();
-            user = memberService.findByEmail(email);
-        }
+            User user = memberService.findByEmail(email);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(user);

@@ -37,8 +37,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-        System.out.println("OAuth2SuccessHandler.onAuthenticationSuccess메서드 실행!");
-
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> userInfo = (Map<String, Object>) oAuth2User.getAttributes().get("response");
         String name = (String) userInfo.get("name");
