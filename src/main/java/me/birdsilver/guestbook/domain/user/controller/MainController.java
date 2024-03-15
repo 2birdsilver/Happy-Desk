@@ -1,7 +1,7 @@
 package me.birdsilver.guestbook.domain.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 import me.birdsilver.guestbook.domain.user.service.MemberService;
 import me.birdsilver.guestbook.domain.memo.service.MemoService;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,14 @@ public class MainController {
     private final MemoService memoService;
 
     @GetMapping("/members")
-    public ResponseEntity<List<User>> getAllMembers() {
-        List<User> members = memberService.findAll();
+    public ResponseEntity<List<Intern>> getAllMembers() {
+        List<Intern> members = memberService.findAll();
         return ResponseEntity.ok(members);
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<User> getMember(@PathVariable long id) {
-        User member = memberService.findById(id);
+    public ResponseEntity<Intern> getMember(@PathVariable long id) {
+        Intern member = memberService.findById(id);
         return member != null ? ResponseEntity.ok(member) : ResponseEntity.notFound().build();
     }
 //글등록 누르면 여기로 이동

@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.config.jwt.TokenProvider;
 import me.birdsilver.guestbook.domain.user.dao.RefreshTokenRepository;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 import me.birdsilver.guestbook.domain.user.entity.RefreshToken;
 import me.birdsilver.guestbook.domain.user.service.MemberService;
 import me.birdsilver.guestbook.domain.util.CookieUtil;
@@ -42,7 +42,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String name = (String) userInfo.get("name");
         String email = (String) userInfo.get("email");
         String birthday = (String) userInfo.get("birthday");
-        User user = memberService.findByName(name);
+        Intern user = memberService.findByName(name);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);

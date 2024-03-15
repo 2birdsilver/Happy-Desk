@@ -2,7 +2,7 @@ package me.birdsilver.guestbook.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.config.jwt.TokenProvider;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -24,7 +24,7 @@ public class TokenService {
 //        String value = refreshTokenService.findByRefreshToken(refreshToken).getValue();
 //        Intern intern = memberService.findById(userId);
 
-          User intern = new User();
+          Intern intern = new Intern();
         return tokenProvider.generateToken(intern, Duration.ofHours(2));
     }
 }

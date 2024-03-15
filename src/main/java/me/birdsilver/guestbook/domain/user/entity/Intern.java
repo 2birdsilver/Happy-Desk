@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class Intern implements UserDetails {
 
     // 멤버 id
     @Id
@@ -69,14 +69,14 @@ public class User implements UserDetails {
 
 
     @Builder
-    public User(String name, String birthday, String mobile, Role role) {
+    public Intern(String name, String birthday, String mobile, Role role) {
         this.name = name;
         this.birthday = birthday;
         this.mobile = mobile;
         this.role = role;
     }
 
-    public User update(String mobile) {
+    public Intern update(String mobile) {
         this.mobile = mobile;
 
         return this;

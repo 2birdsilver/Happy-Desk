@@ -1,7 +1,7 @@
 package me.birdsilver.guestbook.domain.user.dto;
 
 import lombok.*;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ public class MemberLoginResponseDto {
     private String name;
     private String avatarUrl;
 
-    public static MemberLoginResponseDto of(User intern) {
+    public static MemberLoginResponseDto of(Intern intern) {
         return MemberLoginResponseDto.builder()
                 .id(intern.getId())
                 .name(intern.getName())
