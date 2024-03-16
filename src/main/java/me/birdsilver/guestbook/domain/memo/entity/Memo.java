@@ -39,7 +39,7 @@ public class Memo {
     private LocalDateTime date;
 
     // 비밀번호
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = true)
     private String password;
 
     @Column(name = "shape",nullable = false)
@@ -48,8 +48,11 @@ public class Memo {
     @Column(name = "color",nullable = false)
     private String color;
 
+    @Column(name = "authenticatedWriter",nullable = true)
+    private boolean authenticatedWriter;
+
     @Builder
-    public Memo(String writer, Long recipient, String content, String password, String shape, String color) {
+    public Memo(String writer, Long recipient, String content, String password, String shape, String color, boolean authenticatedWriter) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;
@@ -57,6 +60,7 @@ public class Memo {
         this.password = password;
         this.shape = shape;
         this.color = color;
+        this.authenticatedWriter = authenticatedWriter;
     }
 
     public void update(String writer, String content, String shape, String color) {

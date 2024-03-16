@@ -2,7 +2,7 @@ package me.birdsilver.guestbook.config.oauth;
 
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.domain.user.dao.MemberRepository;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -31,7 +31,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     }
 
     // ❷ 유저가 있으면 업데이트, 없으면 유저 생성
-    private User saveOrUpdate(OAuth2User oAuth2User) {
+    private Intern saveOrUpdate(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
@@ -43,10 +43,10 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
         Collection<? extends GrantedAuthority> getAuthorities = oAuth2User.getAuthorities();
 
-        User user = memberRepository.findByName(name)
+        Intern user = memberRepository.findByName(name)
                 .map(entity -> entity.update(email))
                 .map(entity -> entity.update(birthday))
-                .orElse(User.builder()
+                .orElse(Intern.builder()
                         .name(name)
                         .birthday(birthday)
                         .email(email)

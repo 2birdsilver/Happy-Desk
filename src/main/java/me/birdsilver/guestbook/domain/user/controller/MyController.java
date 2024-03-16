@@ -22,12 +22,12 @@ public class MyController {
      * @param requestDto
      * @return 응답
      */
-    @PostMapping("/login")
-    public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto requestDto) {
-        MemberLoginResponseDto responseDto = memberService.login(requestDto.getEmail(), requestDto.getPassword());
-
-        return  ResponseEntity.ok(responseDto);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto requestDto) {
+//        MemberLoginResponseDto responseDto = memberService.login(requestDto.getEmail(), requestDto.getPassword());
+//
+//        return  ResponseEntity.ok(responseDto);
+//    }
 
 
 

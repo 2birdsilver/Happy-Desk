@@ -5,7 +5,7 @@ import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.entity.User;
+import me.birdsilver.guestbook.domain.user.entity.Intern;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,13 +22,13 @@ public class TokenProvider {
 
     private final JwtProperties jwtProperties;
     
-    public String generateToken(User user, Duration expiredAt) {
+    public String generateToken(Intern user, Duration expiredAt) {
         Date now = new Date();
         return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);
     }
 
     // JWT 토큰 생성 메서드
-    private String makeToken(Date expiry, User intern) {
+    private String makeToken(Date expiry, Intern intern) {
         Date now = new Date();
 
         return Jwts.builder()
