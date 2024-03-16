@@ -48,6 +48,7 @@ public class Memo {
     @Column(name = "color",nullable = false)
     private String color;
 
+    // 작성자 익명 여부(실명: true, 익명: false)
     @Column(name = "authenticatedWriter",nullable = true)
     private boolean authenticatedWriter;
 
