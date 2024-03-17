@@ -34,21 +34,36 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     private Intern saveOrUpdate(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
-        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-        String name = (String) response.get("name");
-        String birthday = (String) response.get("birthday");
+        final String name;
+        final String email;
+
+        // 카카오로 로그인한 경우
+        if (attributes.containsKey("kakao_account")) {
+            Map<String, Object> kakao_accout = (Map<String, Object>) attributes.get("kakao_account");
+
+            Map<String, Object> profile = (Map<String, Object>) kakao_accout.get("profile");
+            name = (String) profile.get("nickname");
+            email = (String) kakao_accout.get("email");
+        }
+
+
+        // 네이버로 로그인한 경우
+        else {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+            name = (String) response.get("name");
+//            birthday = (String) response.get("birthday");
 //        String birthyear = (String) response.get("birthyear");
 //        String mobile = (String) response.get("mobile");
-        String email = (String) response.get("email");
+            email = (String) response.get("email");
+        }
 
         Collection<? extends GrantedAuthority> getAuthorities = oAuth2User.getAuthorities();
 
         Intern user = memberRepository.findByName(name)
                 .map(entity -> entity.update(email))
-                .map(entity -> entity.update(birthday))
                 .orElse(Intern.builder()
                         .name(name)
-                        .birthday(birthday)
                         .email(email)
                         .build());
 

@@ -47,7 +47,7 @@ public class UserController {
         }
 
     @PostMapping("/api/authenticated/userInfo")
-    public ResponseEntity<Intern> getUserInfo(@Nullable  Principal principal) {
+    public ResponseEntity<Intern> getUserInfo(@Nullable Principal principal) {
         if (principal != null) {
             String email = principal.getName();
             Intern user = memberService.findByEmail(email);

@@ -36,13 +36,31 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        Map<String, Object> userInfo = (Map<String, Object>) oAuth2User.getAttributes().get("response");
-        String name = (String) userInfo.get("name");
-        String email = (String) userInfo.get("email");
-        String birthday = (String) userInfo.get("birthday");
-        Intern user = memberService.findByName(name);
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+
+//        final String name;
+        final String email;
+
+        // 카카오로 로그인한 경우
+        if (attributes.containsKey("kakao_account")) {
+            Map<String, Object> kakao_accout = (Map<String, Object>) attributes.get("kakao_account");
+
+            Map<String, Object> profile = (Map<String, Object>) kakao_accout.get("profile");
+//            name = (String) profile.get("nickname");
+            email = (String) kakao_accout.get("email");
+        }
+
+        // 네이버로 로그인한 경우
+        else {
+            Map<String, Object> userInfo = (Map<String, Object>) attributes.get("response");
+
+//            name = (String) userInfo.get("name");
+            email = (String) userInfo.get("email");
+//        String birthday = (String) userInfo.get("birthday");
+        }
+
+        Intern user = memberService.findByEmail(email);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
