@@ -110,19 +110,18 @@ public class MemoController {
             String email = principal.getName();
             Long userId = memberService.findByEmail(email).getId();
 
-            if (request.getAuthenticatedWriter() != userId) {
+            if (memo.getAuthenticatedWriter() != userId) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("not authorized");
             }
         }
 
         // 비로그인한 작성자의 메모 => 비밀번호 확인
-        if (memo.getPassword().equals(request.getPassword())) {
-            memoService.delete(memoId);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-        }
-        else {
+        else if (!memo.getPassword().equals(request.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
         }
+
+        memoService.delete(memoId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }
