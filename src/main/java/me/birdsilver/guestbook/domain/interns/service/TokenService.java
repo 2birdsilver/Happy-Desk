@@ -1,8 +1,8 @@
-package me.birdsilver.guestbook.domain.user.service;
+package me.birdsilver.guestbook.domain.interns.service;
 
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.config.jwt.TokenProvider;
-import me.birdsilver.guestbook.domain.user.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;

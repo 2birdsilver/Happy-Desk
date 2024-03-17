@@ -1,4 +1,4 @@
-package me.birdsilver.guestbook.domain.user.entity;
+package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

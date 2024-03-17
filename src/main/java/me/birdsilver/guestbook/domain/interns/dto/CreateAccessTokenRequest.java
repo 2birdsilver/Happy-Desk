@@ -1,4 +1,4 @@
-package me.birdsilver.guestbook.domain.user.dto;
+package me.birdsilver.guestbook.domain.interns.dto;
 
 import lombok.Getter;
 import lombok.Setter;

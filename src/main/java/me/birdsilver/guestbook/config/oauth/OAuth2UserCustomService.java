@@ -1,8 +1,8 @@
 package me.birdsilver.guestbook.config.oauth;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.dao.MemberRepository;
-import me.birdsilver.guestbook.domain.user.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

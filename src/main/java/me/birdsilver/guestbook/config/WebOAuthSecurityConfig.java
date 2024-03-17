@@ -1,13 +1,12 @@
 package me.birdsilver.guestbook.config;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.config.TokenAuthenticationFilter;
 import me.birdsilver.guestbook.config.jwt.TokenProvider;
 import me.birdsilver.guestbook.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import me.birdsilver.guestbook.config.oauth.OAuth2SuccessHandler;
 import me.birdsilver.guestbook.config.oauth.OAuth2UserCustomService;
-import me.birdsilver.guestbook.domain.user.dao.RefreshTokenRepository;
-import me.birdsilver.guestbook.domain.user.service.MemberService;
+import me.birdsilver.guestbook.domain.interns.dao.RefreshTokenRepository;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

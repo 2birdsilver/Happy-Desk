@@ -1,6 +1,6 @@
-package me.birdsilver.guestbook.domain.user.dao;
+package me.birdsilver.guestbook.domain.interns.dao;
 
-import me.birdsilver.guestbook.domain.user.entity.RefreshToken;
+import me.birdsilver.guestbook.domain.interns.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

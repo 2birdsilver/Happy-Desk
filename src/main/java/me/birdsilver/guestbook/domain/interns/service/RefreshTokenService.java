@@ -1,8 +1,8 @@
-package me.birdsilver.guestbook.domain.user.service;
+package me.birdsilver.guestbook.domain.interns.service;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.dao.RefreshTokenRepository;
-import me.birdsilver.guestbook.domain.user.entity.RefreshToken;
+import me.birdsilver.guestbook.domain.interns.dao.RefreshTokenRepository;
+import me.birdsilver.guestbook.domain.interns.entity.RefreshToken;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

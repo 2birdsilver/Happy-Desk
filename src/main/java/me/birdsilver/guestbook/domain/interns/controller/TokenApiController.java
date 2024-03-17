@@ -1,10 +1,10 @@
-package me.birdsilver.guestbook.domain.user.controller;
+package me.birdsilver.guestbook.domain.interns.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.dto.CreateAccessTokenRequest;
-import me.birdsilver.guestbook.domain.user.dto.CreateAccessTokenResponse;
-import me.birdsilver.guestbook.domain.user.service.MemberService;
-import me.birdsilver.guestbook.domain.user.service.TokenService;
+import me.birdsilver.guestbook.domain.interns.dto.CreateAccessTokenRequest;
+import me.birdsilver.guestbook.domain.interns.dto.CreateAccessTokenResponse;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
+import me.birdsilver.guestbook.domain.interns.service.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

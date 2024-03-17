@@ -1,8 +1,8 @@
-package me.birdsilver.guestbook.domain.user.entity;
+package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.birdsilver.guestbook.domain.user.dto.Role;
+import me.birdsilver.guestbook.domain.interns.dto.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

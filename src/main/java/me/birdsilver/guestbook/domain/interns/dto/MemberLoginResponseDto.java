@@ -1,7 +1,7 @@
-package me.birdsilver.guestbook.domain.user.dto;
+package me.birdsilver.guestbook.domain.interns.dto;
 
 import lombok.*;
-import me.birdsilver.guestbook.domain.user.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
 
 @Getter
 @Setter
