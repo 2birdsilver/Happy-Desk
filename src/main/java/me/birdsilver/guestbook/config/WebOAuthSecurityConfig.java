@@ -45,12 +45,12 @@ public class WebOAuthSecurityConfig {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthentgit icationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
         http.authorizeRequests()
                 .requestMatchers("/**", "/api/**", "/login", "/").permitAll()
-                .requestMatchers("**/authenticated/**").authenticated()
+//                .requestMatchers("**/authenticated/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
