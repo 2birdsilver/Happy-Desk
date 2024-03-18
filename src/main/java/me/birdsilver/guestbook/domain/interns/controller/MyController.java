@@ -1,12 +1,7 @@
-package me.birdsilver.guestbook.domain.user.controller;
+package me.birdsilver.guestbook.domain.interns.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.dto.MemberLoginRequestDto;
-import me.birdsilver.guestbook.domain.user.dto.MemberLoginResponseDto;
-import me.birdsilver.guestbook.domain.user.service.MemberService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

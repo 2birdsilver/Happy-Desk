@@ -1,11 +1,11 @@
-package me.birdsilver.guestbook.domain.user.controller;
+package me.birdsilver.guestbook.domain.interns.controller;
 
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.entity.Intern;
-import me.birdsilver.guestbook.domain.user.service.MemberService;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,7 +47,7 @@ public class UserController {
         }
 
     @PostMapping("/api/authenticated/userInfo")
-    public ResponseEntity<Intern> getUserInfo(@Nullable  Principal principal) {
+    public ResponseEntity<Intern> getUserInfo(@Nullable Principal principal) {
         if (principal != null) {
             String email = principal.getName();
             Intern user = memberService.findByEmail(email);

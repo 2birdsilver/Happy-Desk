@@ -48,11 +48,13 @@ public class Memo {
     @Column(name = "color",nullable = false)
     private String color;
 
+    // 실명 작성자인 경우 => 작성자의 id
+    // 익명 작성자인 경우 => null
     @Column(name = "authenticatedWriter",nullable = true)
-    private boolean authenticatedWriter;
+    private Long authenticatedWriter;
 
     @Builder
-    public Memo(String writer, Long recipient, String content, String password, String shape, String color, boolean authenticatedWriter) {
+    public Memo(String writer, Long recipient, String content, String password, String shape, String color, long authenticatedWriter) {
         this.writer = writer;
         this.recipient = recipient;
         this.content = content;

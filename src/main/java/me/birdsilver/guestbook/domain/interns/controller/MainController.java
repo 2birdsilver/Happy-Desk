@@ -1,8 +1,8 @@
-package me.birdsilver.guestbook.domain.user.controller;
+package me.birdsilver.guestbook.domain.interns.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.user.entity.Intern;
-import me.birdsilver.guestbook.domain.user.service.MemberService;
+import me.birdsilver.guestbook.domain.interns.entity.Intern;
+import me.birdsilver.guestbook.domain.interns.service.MemberService;
 import me.birdsilver.guestbook.domain.memo.service.MemoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

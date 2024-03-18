@@ -16,5 +16,5 @@ public class UpdateMemoRequest {
     private String password;
     private String color;
     private String shape;
-    private boolean authenticatedWriter;
+    private long authenticatedWriter;
 }

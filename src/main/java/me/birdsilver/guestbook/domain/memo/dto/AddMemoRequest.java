@@ -20,7 +20,7 @@ public class AddMemoRequest {
     private String password;
     private  String shape;
     private String color;
-    private boolean authenticatedWriter;
+    private long authenticatedWriter;
 
     public Memo toEntity() {
         return Memo.builder()

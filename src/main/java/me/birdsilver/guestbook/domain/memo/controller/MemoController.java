@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/memo")
@@ -38,15 +37,14 @@ public class MemoController {
         return memoService.findAll();
     }
 
-    
+
+    // 메모 수정 페이지
     @GetMapping("/update/{id}")
     public ResponseEntity<Memo> getMemoById(@PathVariable long id) {
         Memo memo = memoService.findById(id);
-
         return ResponseEntity.ok(memo);
     }
 
-    // 인턴별 메모 조회
     @GetMapping("/{recipientId}")
     public ResponseEntity<List<Memo>> getMemosByRecipient(@PathVariable Long recipientId) {
 
@@ -57,47 +55,33 @@ public class MemoController {
         return ResponseEntity.ok(memos);
     }
 
-    
-    // 메모 삭제
+
+
     @PostMapping("/delete")
     public ResponseEntity<?> deleteMemo(@RequestBody DeleteMemoRequest request) {
         Long memoId = request.getMemoId();
         Memo memo = memoService.findById(memoId);
 
-        // 실명으로 작성하였거나, 비밀번호가 일치하는 경우 삭제 처리
-        boolean isConditionMatched = Optional.ofNullable(request.isAuthenticatedWriter())
-                .orElse(false)
-                || Optional.ofNullable(memo.getPassword())
-                .map(password -> password.equals(request.getPassword()))
-                .orElse(false);
-
-        if (isConditionMatched) {
+        if (memo.getPassword().equals(request.getPassword())) {
             memoService.delete(memoId);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         }
         else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("mismatched");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
         }
 
     }
 
-    // 메모 수정
     @PutMapping("/{id}")
     public ResponseEntity<?> updateMemo(@PathVariable long id, @RequestBody UpdateMemoRequest request) {
         Memo memo = memoService.findById(id);
 
-        // 실명으로 작성하였거나, 비밀번호가 일치하는 경우 수정 처리
-        boolean isConditionMatched = Optional.ofNullable(request.isAuthenticatedWriter())
-                .orElse(false)
-                || Optional.ofNullable(memo.getPassword())
-                .map(password -> password.equals(request.getPassword()))
-                .orElse(false);
-
-        if (isConditionMatched) {
-            Memo updatedMemo = memoService.update(id, request);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("mismatched");
+        if (!request.getPassword().equals(memo.getPassword())) {
+            // 비밀번호가 다를 경우 UNAUTHORIZED 상태와 에러 메시지를 반환
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
         }
+
+        Memo updatedMemo = memoService.update(id, request);
+        return ResponseEntity.ok(updatedMemo);
     }
 }

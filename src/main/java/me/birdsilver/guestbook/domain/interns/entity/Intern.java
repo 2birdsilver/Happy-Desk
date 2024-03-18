@@ -1,8 +1,8 @@
-package me.birdsilver.guestbook.domain.user.entity;
+package me.birdsilver.guestbook.domain.interns.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.birdsilver.guestbook.domain.user.dto.Role;
+import me.birdsilver.guestbook.domain.interns.dto.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Intern implements UserDetails {
@@ -59,8 +58,8 @@ public class Intern implements UserDetails {
     @Column(name = "birthyear", nullable = true)
     private String birthyear;
 
-    @Column(name = "mobile", nullable = true)
-    private String mobile;
+//    @Column(name = "mobile", nullable = true)
+//    private String mobile;
 
 
     @Enumerated(EnumType.STRING)
@@ -69,16 +68,13 @@ public class Intern implements UserDetails {
 
 
     @Builder
-    public Intern(String name, String birthday, String mobile, Role role) {
+    public Intern(String name, String email) {
         this.name = name;
-        this.birthday = birthday;
-        this.mobile = mobile;
-        this.role = role;
+        this.email = email;
     }
 
-    public Intern update(String mobile) {
-        this.mobile = mobile;
-
+    public Intern update(String email) {
+        this.email = email;
         return this;
     }
 
