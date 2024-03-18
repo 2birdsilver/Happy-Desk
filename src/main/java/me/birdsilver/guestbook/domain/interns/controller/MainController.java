@@ -3,11 +3,8 @@ package me.birdsilver.guestbook.domain.interns.controller;
 import lombok.RequiredArgsConstructor;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.service.MemberService;
-import me.birdsilver.guestbook.domain.memo.entity.Memo;
 import me.birdsilver.guestbook.domain.memo.service.MemoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,10 +45,5 @@ public class MainController {
 //        return "newMemo";
 //    }
 
-    /*react연동 test*/
-    @GetMapping("/api/hello")
-    public String test() {
-        return "Hello, world!";
-    }
 
 }

@@ -3,8 +3,6 @@ package me.birdsilver.guestbook.domain.interns.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.birdsilver.guestbook.domain.interns.dto.MemberLoginRequestDto;
-import me.birdsilver.guestbook.domain.interns.dto.MemberLoginResponseDto;
 import me.birdsilver.guestbook.domain.interns.dto.UpdateInternRequestDto;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.service.FileService;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,13 +27,6 @@ public class MyController {
     private final MemberService memberService;
     private final FileService fileService;
 
-    /** 간단 로그인 */
-    @PostMapping("/login")
-    public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto requestDto) {
-        MemberLoginResponseDto responseDto = memberService.login(requestDto.getEmail(), requestDto.getPassword());
-
-        return  ResponseEntity.ok(responseDto);
-    }
 
     /** 내 정보 수정 + 첨부파일 포함 */
     @PostMapping("/myinfo/update")

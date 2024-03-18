@@ -1,5 +1,6 @@
 package me.birdsilver.guestbook.domain.memo.dto;
 
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class AddMemoRequest {
     private String password;
     private  String shape;
     private String color;
+    private long authenticatedWriter;
 
     public Memo toEntity() {
         return Memo.builder()
@@ -28,6 +30,7 @@ public class AddMemoRequest {
                 .password(password)
                 .shape(shape)
                 .color(color)
+                .authenticatedWriter(authenticatedWriter)
                 .build();
     }
 }

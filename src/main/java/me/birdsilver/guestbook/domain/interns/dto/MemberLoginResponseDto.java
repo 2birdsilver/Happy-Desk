@@ -1,6 +1,5 @@
 package me.birdsilver.guestbook.domain.interns.dto;
 
-import jakarta.persistence.Column;
 import lombok.*;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 
