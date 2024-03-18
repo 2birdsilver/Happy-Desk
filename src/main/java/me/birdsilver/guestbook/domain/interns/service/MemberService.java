@@ -5,8 +5,8 @@ import me.birdsilver.guestbook.domain.interns.dto.MemberLoginRequestDto;
 import me.birdsilver.guestbook.domain.interns.dto.MemberLoginResponseDto;
 import me.birdsilver.guestbook.domain.interns.entity.Intern;
 import me.birdsilver.guestbook.domain.interns.dao.MemberRepository;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,12 +33,12 @@ public class MemberService {
     public MemberLoginResponseDto login(String email, String password) {
         Optional<MemberLoginResponseDto> optionMember = null;
         Intern intern = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         if (intern.getPassword().equals(password)) {
             optionMember = memberRepository.findByEmail(email).map(MemberLoginResponseDto::of);
         } else {
-            throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         if (optionMember.isEmpty())
