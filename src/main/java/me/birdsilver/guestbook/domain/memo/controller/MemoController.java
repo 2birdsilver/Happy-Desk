@@ -76,7 +76,9 @@ public class MemoController {
 
     // 메모 수정
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateMemo(@PathVariable long id, @RequestBody UpdateMemoRequest request, @Nullable Principal principal) {
+    public ResponseEntity<?> updateMemo(@PathVariable long id, 
+                                        @RequestBody UpdateMemoRequest request, 
+                                        @Nullable Principal principal) {
         Memo memo = memoService.findById(id);
 
         // 로그인한 작성자의 메모의 경우 => 본인 확인
@@ -84,18 +86,25 @@ public class MemoController {
             String email = principal.getName();
             Long userId = memberService.findByEmail(email).getId();
 
+            // 메모의 기존 작성자와 현재 로그인 회원이 다르면 수정 불가
             if (request.getAuthenticatedWriter() != userId) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("not authorized");
             }
+
+
         }
 
-        // 비로그인한 작성자의 메모 => 비밀번호 확인
-        if (!request.getPassword().equals(memo.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
+        // 비로그인 작성자의 메모의 경우 => 비밀번호 확인
+        else {
+            // 비밀번호가 다르면 수정 불가
+            if (!request.getPassword().equals(memo.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
+            }
         }
 
         Memo updatedMemo = memoService.update(id, request);
         return ResponseEntity.ok(updatedMemo);
+    
     }
 
 
@@ -110,14 +119,18 @@ public class MemoController {
             String email = principal.getName();
             Long userId = memberService.findByEmail(email).getId();
 
+            // 메모의 기존 작성자와 현재 로그인 회원이 다르면 수정 불가
             if (memo.getAuthenticatedWriter() != userId) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("not authorized");
             }
         }
 
-        // 비로그인한 작성자의 메모 => 비밀번호 확인
-        else if (!memo.getPassword().equals(request.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
+        // 비로그인 작성자의 메모의 경우 => 비밀번호 확인
+        else {
+            // 비밀번호가 다르면 삭제 불가
+            if (!request.getPassword().equals(request.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
+            }
         }
 
         memoService.delete(memoId);
