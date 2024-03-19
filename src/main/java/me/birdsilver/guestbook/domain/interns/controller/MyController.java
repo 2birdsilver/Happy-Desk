@@ -36,8 +36,8 @@ public class MyController {
     public ResponseEntity<String> updateMyinfo(
             @RequestParam(value = "userId", required = false) long userId,
             @RequestParam(value = "introduction") String introduction,
-            @RequestParam(value = "keyboard", required = false) MultipartFile keyboard[],
-            @RequestParam(value = "mouse", required = false) MultipartFile mouse[],
+            @RequestParam(value = "keyboard", required = false) MultipartFile keyboard,
+            @RequestParam(value = "mouse", required = false) MultipartFile mouse,
             HttpServletRequest request, HttpServletResponse response, Model model) {
         {
 
@@ -48,16 +48,16 @@ public class MyController {
 
             try {
                 // 키보드 이미지가 있는 경우 이미지 변환 및 업로드
-                if (keyboard != null && !mouse[0].isEmpty()) {
-                    String extName = fileService.extractFileExt(keyboard[0]);
-                    byte[] keyboardBytes = keyboard[0].getBytes();
+                if (keyboard != null && !keyboard.isEmpty()) {
+                    String extName = fileService.extractFileExt(keyboard);
+                    byte[] keyboardBytes = keyboard.getBytes();
                     fileService.updateUserImage(userId, "keyboard", keyboardBytes, extName);
                 }
 
                 // 마우스 이미지가 있는 경우 이미지 변환 및 업로드
-                if (mouse != null && !mouse[0].isEmpty()) {
-                    String extName = fileService.extractFileExt(mouse[0]);
-                    byte[] mouseBytes = mouse[0].getBytes();
+                if (mouse != null && !mouse.isEmpty()) {
+                    String extName = fileService.extractFileExt(mouse);
+                    byte[] mouseBytes = mouse.getBytes();
                     fileService.updateUserImage(userId, "mouse", mouseBytes, extName);
                 }
             } catch (IOException e) {
