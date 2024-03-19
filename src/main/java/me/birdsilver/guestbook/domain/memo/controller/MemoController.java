@@ -97,7 +97,7 @@ public class MemoController {
         // 비로그인 작성자의 메모의 경우 => 비밀번호 확인
         else {
             // 비밀번호가 다르면 수정 불가
-            if (!request.getPassword().equals(memo.getPassword())) {
+            if (!request.getPassword().equals(memo.getPassword()) || memo.getAuthenticatedWriter() != 0) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
             }
         }
@@ -128,7 +128,7 @@ public class MemoController {
         // 비로그인 작성자의 메모의 경우 => 비밀번호 확인
         else {
             // 비밀번호가 다르면 삭제 불가
-            if (!request.getPassword().equals(request.getPassword())) {
+            if (!request.getPassword().equals(request.getPassword()) || memo.getAuthenticatedWriter() != 0) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password mismatch");
             }
         }
