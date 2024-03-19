@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DeleteMemoRequest {
     private Long memoId;
     private String password;
+    private long authenticatedWriter;
 }
