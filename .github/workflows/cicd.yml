@@ -18,7 +18,7 @@ jobs:
 
       # 리액트 프로젝트 디렉토리로 이동
       - name: Change directory to React project
-        run: cd src/main/Happy-Desk-Front
+        run: cd Happy-Desk/src/main/Happy-Desk-Front
 
       # npm 설치 수행
       - name: Install dependencies with npm
