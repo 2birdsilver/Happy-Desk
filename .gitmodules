@@ -1,0 +1,3 @@
+[submodule "src/main/Happy-Desk-Front"]
+	path = src/main/Happy-Desk-Front
+	url = https://github.com/mut-da-na-mit/Happy-Desk-Front.git
