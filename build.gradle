@@ -38,7 +38,7 @@ test {
     useJUnitPlatform()
 }
 
-def frontendDir = "/home/runner/work/Happy-Desk/src/main/Happy-Desk-Front"
+def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
 
 sourceSets {
     main {
