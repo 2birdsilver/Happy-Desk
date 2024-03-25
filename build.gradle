@@ -38,17 +38,17 @@ test {
     useJUnitPlatform()
 }
 
-def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
-
-sourceSets {
-    main {
-        resources { srcDirs = ["$projectDir/src/main/resources"]
-        }
-    }
-}
-
-processResources { dependsOn "copyReactBuildFiles" }
-
+//def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
+//
+//sourceSets {
+//    main {
+//        resources { srcDirs = ["$projectDir/src/main/resources"]
+//        }
+//    }
+//}
+//
+//processResources { dependsOn "copyReactBuildFiles" }
+//
 //task installReact(type: Exec) {
 //    workingDir "$frontendDir"
 //    inputs.dir "$frontendDir"
@@ -60,7 +60,7 @@ processResources { dependsOn "copyReactBuildFiles" }
 //        commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
 //    }
 //}
-
+//
 //task buildReact(type: Exec) {
 //    dependsOn "installReact"
 //    workingDir "$frontendDir"
@@ -72,7 +72,7 @@ processResources { dependsOn "copyReactBuildFiles" }
 //        commandLine "npm", "run-script", "build"
 //    }
 //}
-
+//
 //task copyReactBuildFiles(type: Copy) {
 //    dependsOn "buildReact"
 //    from "$frontendDir/build"
