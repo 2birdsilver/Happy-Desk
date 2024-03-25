@@ -69,7 +69,7 @@ public class MemberService {
 
 
 
- // 유저확인
+    // 유저확인
     private static void authorizeArticleAuthor(Intern user) {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         if (!user.getEmail().equals(userName)) {
@@ -77,4 +77,3 @@ public class MemberService {
         }
     }
 }
-
