@@ -78,3 +78,8 @@ test {
 //    from "$frontendDir/build"
 //    into "$projectDir/src/main/resources/static"
 //}
+
+
+jar {
+    enabled = false
+}
