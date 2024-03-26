@@ -79,7 +79,6 @@ task copyReactBuildFiles(type: Copy) {
     into "$projectDir/src/main/resources/static"
 }
 
-
 jar {
     enabled = false
 }
