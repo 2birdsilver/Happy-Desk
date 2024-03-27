@@ -16,31 +16,12 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      # Node.js와 npm 설치
-      - name: Setup Node.js and npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: '14' # 원하는 버전으로 변경할 수 있습니다.
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-      # React 앱 의존성 설치
-      - name: Install dependencies with npm
-        run: npm install
-        working-directory: src/main/Happy-Desk-Front
+      - name: Build with Gradle
+        run: ./gradlew clean build
 
-      # React 앱 빌드
-      - name: Build React app
-        run: npm run build
-        working-directory: src/main/Happy-Desk-Front
-
-      # Spring Boot 애플리케이션 빌드
-      - name: Build JAR with Spring Boot
-        run: ./gradlew clean bootJar
-
-      # React 앱의 정적 파일을 Spring Boot 리소스 디렉토리로 복사
-      - name: Copy React build files to Spring Boot resources
-        run: cp -r src/main/Happy-Desk-Front/build/* src/main/resources/static/
-
-      # 현재 시간 가져오기
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current-time
@@ -48,18 +29,16 @@ jobs:
           format: YYYY-MM-DDTHH-mm-ss
           utcOffset: "+09:00"
 
-      # artifact 설정
       - name: Set artifact
         run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
 
-      # Beanstalk 배포
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: happy-desk
-          environment_name: Happy-desk-env
+          application_name: spring-boot-developer
+          environment_name: SpringBootDeveloper-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: ./build/libs/${{env.artifact}}
