@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [  ]
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Install Node.js (Node.js 20)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+#      - name: Install Node.js (Node.js 20)
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '20'
 
 #      - name: Install dependencies with npm
 #        run: npm install
