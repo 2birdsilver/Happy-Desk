@@ -49,19 +49,19 @@ sourceSets {
 
 processResources { dependsOn "copyReactBuildFiles" }
 
-task npmInit(type: Exec) {
-    workingDir "$frontendDir"
-    inputs.dir "$frontendDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "init", "-y"
-    } else {
-        commandLine "npm", "init", "-y"
-    }
-}
+//task npmInit(type: Exec) {
+//    workingDir "$frontendDir"
+//    inputs.dir "$frontendDir"
+//    group = BasePlugin.BUILD_GROUP
+//    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//        commandLine "npm.cmd", "init", "-y"
+//    } else {
+//        commandLine "npm", "init", "-y"
+//    }
+//}
 
 task installReact(type: Exec) {
-    dependsOn "npmInit"
+//    dependsOn "npmInit"
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
