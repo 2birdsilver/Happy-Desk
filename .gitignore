@@ -21,4 +21,4 @@ src/main/resources/static/
 src/main/resources/templates/
 
 ### React ###
-#src/main/Happy-Desk-Front-main/
+src/main/Happy-Desk-Front/node_modules
