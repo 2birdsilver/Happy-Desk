@@ -61,7 +61,7 @@ processResources { dependsOn "copyReactBuildFiles" }
 //}
 
 task installReact(type: Exec) {
-    dependsOn "npmInit"
+//    dependsOn "npmInit"
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
