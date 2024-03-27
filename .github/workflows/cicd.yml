@@ -27,7 +27,7 @@ jobs:
 #        run: ./gradlew clean build
 
       - name: Build JAR with Spring Boot
-        run: ./gradlew bootJar --no-daemon
+        run: ./gradlew clean bootJar
 
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
@@ -48,5 +48,4 @@ jobs:
           environment_name: Happy-desk-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
-#          deployment_package: ./build/libs/${{env.artifact}}
-          deployment_package: build/libs/guest-book-1.0-SNAPSHOT.jar
+          deployment_package: ./build/libs/${{env.artifact}}
