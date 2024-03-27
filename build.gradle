@@ -92,6 +92,6 @@ test {
 //    into "$projectDir/src/main/resources/static"
 //}
 //
-//jar {
-//    enabled = false
-//}
+jar {
+    enabled = false
+}
