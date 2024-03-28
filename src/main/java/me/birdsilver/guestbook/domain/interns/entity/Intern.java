@@ -83,6 +83,9 @@ public class Intern implements UserDetails {
     @Column(name = "birthyear", nullable = true)
     private String birthyear;
 
+    @Column(name = "dept", nullable = true)
+    private String dept;
+
 //    @Column(name = "mobile", nullable = true)
 //    private String mobile;
 
