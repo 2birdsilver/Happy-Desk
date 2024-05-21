@@ -53,13 +53,17 @@ task installReact(type: Exec) {
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install' }
-    else {
-        commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
+
+    def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+    def isWindows = osName.contains('windows')
+
+    if (isWindows) {
+        commandLine 'cmd', '/c', 'nvm install node && nvm use node && npm.cmd audit fix && npm.cmd install'
+    } else {
+        commandLine 'sh', '-c', 'nvm install node && nvm use node && npm audit fix && npm install'
     }
 }
+
 
 task buildReact(type: Exec) {
     dependsOn "installReact"
