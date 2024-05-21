@@ -42,7 +42,7 @@ bin/
 .vscode/
 
 ### React ###
-src/main/Happy-Desk-Front/node_modules/
+src/main/Happy-Desk-Front-develop/node_modules/
 # 변경: src/main/Happy-Desk-Front/ -> src/main/Happy-Desk-Front/node_modules/
 # 기존에는 프론트엔드 파일 전부 추적제외하였으나 git Actions에서 프론트엔드의 파일을 못찾아서 추가하고 node_modeuls폴더만 추적 제외
 

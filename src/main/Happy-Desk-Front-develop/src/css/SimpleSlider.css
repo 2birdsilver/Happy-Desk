@@ -1,0 +1,19 @@
+.slick-slider {
+    margin: 30px 0;
+    width: 800px;
+}
+
+.slider__img {
+    width: 800px;
+    border-radius: 2px;
+}
+
+/* 모바일 사이즈 */
+@media screen and (max-width: 760px) {
+    .slider__img {
+        width: 100%;
+    }
+    .slick-slider {
+        width: 100%;
+    }
+  }

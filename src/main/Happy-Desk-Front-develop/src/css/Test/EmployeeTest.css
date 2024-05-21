@@ -1,0 +1,375 @@
+.EmployeeTest {
+    background-color: #eee;
+}
+
+
+.hide-header-footer .header,
+.hide-header-footer .footer {
+    display: none;
+}
+
+.title__group {
+    display: flex;
+}
+.title__group div {
+    margin-left: 15px;
+}
+
+/* 테스트 기본 css */
+.testLayout {
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    background-color: #eee;
+    height: calc(var(--vh, 1vh)*100);
+}
+
+.startPageLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffea35;
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    color: #413730;
+}
+
+.startLogo {
+    display: flex;
+    flex-direction: column;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.startLogo div:nth-child(1) {
+    background-color: #413730;
+    color: #ffea35;
+    width: 100px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20vw;
+}
+
+.startLogo div:nth-child(2) {
+    color: #413730;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin-top: -1.5vh;
+}
+
+
+.startButton {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.questionLayout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #bacee0;
+    width: 100%;
+    max-width: 900px;
+    overflow: hidden;
+}
+
+.employeeTitle {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    font-weight: 700;
+    font-size: 150%;
+}
+
+.employeeTitle div:nth-child(1) {
+    display: flex;
+    flex: 1;
+}
+
+.questionList {
+    flex: 1;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.questionList::-webkit-scrollbar {
+    display: none;
+}
+
+.questionItemLatyout {
+    display: flex;
+    flex: 1;
+    margin: 10px 15px 5px 15px;
+}
+
+.answerItemLayout {
+    width: 100%;
+    height: 50%;
+    background-color: #fff;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileImg {
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    background-color: #a1b6e9;
+    border-radius: 15px;
+    margin-right: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileImg div:nth-child(1) {
+    background-color: #cbd6f2;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+}
+
+.profileImg div:nth-child(2) {
+    background-color: #cbd6f2;
+    width: 16px;
+    height: 8px;
+    border-radius: 8px 8px 0px 0px;
+    margin-top: 2px;
+}
+
+.chatListLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+.chatBox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 60vw;
+    margin: 3px 0px 12px 0px;
+}
+
+.chatBox div:nth-child(1) {
+    color: #fff;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.chatBox div:nth-child(2) {
+    padding: 7px 10px 7px 10px;
+    background-color: #fff;
+    margin-left: -4px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 200%;
+
+}
+
+.aChatBox {
+    display: flex;
+    width: 100%;
+    color: #969696;
+    font-size: 30px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+}
+
+.aChatBox div:nth-child(1) {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+.aChatBox div:nth-child(2) {
+    padding: 10px;
+}
+
+.answerBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-align: center;
+    box-shadow: 2px 2px 0px #ededed;
+    border: 1px solid #ededed;
+    margin: 0px 20px 15px 20px;
+    border-radius: 10px;
+    font-size: 200%;
+    padding: 20px;
+}
+
+
+/* 결과페이지 블러를 위한 css */
+.resultContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.resultTop {
+    flex: 30%;
+
+}
+
+.resultBottomBlurred {
+    flex: 70%;
+    filter: blur(5px);
+}
+
+.showResultButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    z-index: 2;
+}
+
+.showResultButton button {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    line-height: 1.2;
+    /* 원하는 간격으로 조정 */
+
+
+}
+
+.showResultButton button:hover {
+    background-image: linear-gradient(to right, #2575fc 0%, #6a11cb 100%);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+
+/* 카카오톡 공유하기 CSS */
+.share-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.share-link {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffffff;
+    color: FFD700;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 200%;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.share-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 15px;
+}
+
+.share-text {
+    font-weight: bold;
+}
+
+.share-link:hover,
+.share-link:focus {
+    background-color: #E5BE01;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+/* 배너 css */
+.banner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+    align-items: center;
+}
+
+.banner-item {
+    position: relative;
+    display: inline-block;
+}
+
+.page-banner {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* 반응형CSS */
+@media (min-width: 768px) {
+    .page-banner {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .page-banner {
+        width: 100%;
+    }
+}
+
+
+/* 포스터 및 사진 저장하기 버튼CSS */
+.saveImageButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: hsl(0, 0%, 3%);
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    overflow: hidden;
+    font-family: inherit;
+    opacity: 0.8;
+}
+
+.saveImageButton:hover {
+    background-color: #f5e593;
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
