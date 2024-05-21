@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'me.birdsilver'
-version = '1.0-SNAPSHOT'
+version = '1.0.1-SNAPSHOT'
 
 
 repositories {
@@ -38,6 +38,10 @@ test {
     useJUnitPlatform()
 }
 
+jar {
+    enabled = false
+}
+
 def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
 
 sourceSets {
@@ -47,7 +51,7 @@ sourceSets {
     }
 }
 
-processResources { dependsOn "copyReactBuildFiles" }
+processResources { dependsOn "copyReactBuildFiles" }    
 
 //task npmInit(type: Exec) {
 //    workingDir "$frontendDir"

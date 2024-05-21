@@ -1,8 +1,16 @@
+<<<<<<< Updated upstream
+=======
+#깃허브 액션 이름
+>>>>>>> Stashed changes
 name: CI/CD
 
 on:
   push:
+<<<<<<< Updated upstream
     branches: [  ]
+=======
+    branches: [ main ]
+>>>>>>> Stashed changes
 
 jobs:
   build:
@@ -16,6 +24,7 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
+<<<<<<< Updated upstream
 #      - name: Install Node.js (Node.js 20)
 #        uses: actions/setup-node@v4
 #        with:
@@ -34,6 +43,15 @@ jobs:
       - name: Build JAR with Spring Boot
         run: ./gradlew clean bootJar
 
+=======
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      # 현재 시간 가져오기
+>>>>>>> Stashed changes
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current-time
@@ -41,16 +59,29 @@ jobs:
           format: YYYY-MM-DDTHH-mm-ss
           utcOffset: "+09:00"
 
+<<<<<<< Updated upstream
       - name: Set artifact
         run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
 
+=======
+      # 배포용 패키지 경로 저장
+      - name: Set artifact
+        run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
+
+      # 빈스토크 배포
+>>>>>>> Stashed changes
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+<<<<<<< Updated upstream
           application_name: happy-desk
           environment_name: Happy-desk-env
+=======
+          application_name: spring-boot-developer
+          environment_name: SpringBootDeveloper-env
+>>>>>>> Stashed changes
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: ./build/libs/${{env.artifact}}
