@@ -65,7 +65,7 @@ task npmInit(type: Exec) {
 }
 
 task installReact(type: Exec) {
-//    dependsOn "npmInit"
+    dependsOn "npmInit"
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
