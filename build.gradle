@@ -42,7 +42,7 @@ jar {
     enabled = false
 }
 
-def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
+def frontendDir = "$projectDir/src/main/Happy-Desk-Front-develop"
 
 sourceSets {
     main {
