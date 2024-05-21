@@ -15,9 +15,9 @@ jobs:
         # 수정: 16.x버전 depricated되었다고 오류 메세지 발생해서 16.x -> 20.x 로 변경
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         # 수정: setup-node@v3 -> setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
