@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'me.birdsilver'
-version = '1.0-SNAPSHOT'
+version = '1.0.1-SNAPSHOT'
 
 
 repositories {
@@ -38,7 +38,11 @@ test {
     useJUnitPlatform()
 }
 
-def frontendDir = "$projectDir/src/main/Happy-Desk-Front-develop"
+jar {
+    enabled = false
+}
+
+def frontendDir = "$projectDir/src/main/Happy-Desk-Front"
 
 sourceSets {
     main {
@@ -49,19 +53,28 @@ sourceSets {
 
 processResources { dependsOn "copyReactBuildFiles" }
 
-ext {
-    frontendDir = project.hasProperty('projectDir') ? project.projectDir : "$projectDir/src/main/Happy-Desk-Front-develop"
+task npmInit(type: Exec) {
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine "npm.cmd", "init", "-y"
+    } else {
+        commandLine "npm", "init", "-y"
+    }
 }
 
 task installReact(type: Exec) {
+//    dependsOn "npmInit"
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
         commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install', '-g', 'npm@latest' }
-    else {
-        commandLine "npm", "audit", "fix" commandLine 'npm', 'install', '-g', 'npm@latest'
+        commandLine 'npm.cmd', 'install'
+    } else {
+        commandLine "npm", "audit", "fix"
+        commandLine 'npm', 'install'
     }
 }
 
@@ -71,9 +84,9 @@ task buildReact(type: Exec) {
     inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run-script", "build"
+        commandLine "cmd", "/c", "npm.cmd", "run-script", "build"
     } else {
-        commandLine "npm", "run-script", "build"
+        commandLine "sh", "-c", "chmod +x ./node_modules/.bin/react-scripts && npm run-script build"
     }
 }
 
